@@ -57,7 +57,6 @@
 </template>
 
 <script>
-  import QuarterSelect from './childComponents/QuarterSelect'
   import QuarterModel from './childComponents/QuarterModel'
     export default {
       name: "Home",
@@ -128,7 +127,6 @@
 
       },
       components:{
-        QuarterSelect,
         QuarterModel
       }
     }

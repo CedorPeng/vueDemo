@@ -1,4 +1,5 @@
 <template>
+  <!--季度选择器-->
   <div>
     <div class="everyQuarter">
       <div class="yearBox">{{year}}</div>
