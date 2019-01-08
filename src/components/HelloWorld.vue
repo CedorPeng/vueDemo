@@ -2,10 +2,12 @@
   <div class="hello">
     <div ref="mydiv"></div>
     <router-link to="/home">Go Home</router-link>
+    <Button type="default" @click="transmit" >传递值</Button>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'//引入vuex的mapActions方法
 export default {
   name: 'HelloWorld',
   data () {
@@ -19,11 +21,19 @@ export default {
   mounted(){
     this.$refs.mydiv.innerHTML = '哈哈'
     this.$refs.mydiv.style.color = 'red'
+  },
+  methods:{
+    ...mapActions(['clickParams']),//注册clickParams方法
+    transmit(){
+      this.clickParams({//使用clickParams传递数据
+        value:'newTransmit'
+      })
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 h1, h2 {
   font-weight: normal;

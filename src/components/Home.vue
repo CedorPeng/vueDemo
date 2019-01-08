@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Button type="default" @click="useTransmit">使用传递的值</Button>
     <Form label-position="top">
       <Row :gutter="10">
         <Col span="6">
@@ -37,6 +38,7 @@
 
 <script>
   import QuarterModel from '../childComponents/QuarterModel'
+  import {mapGetters} from 'vuex'//引入vuex的mapGetters方法
     export default {
       name: "Home",
       data(){
@@ -47,9 +49,11 @@
           endTime:'',
           ifChangeStart:false,
           ifChangeEnd:false,
+          transmitValue:'',
         }
       },
       methods:{
+        ...mapGetters(['getParams']),//注册getParams方法
         getStartTime(time){
           this.startTime = time;
           this.ifChangeStart = false;
@@ -96,9 +100,14 @@
           this.ifChangeStart = false;
         },
 
+        useTransmit(){
+          console.log(this.transmitValue.value);//使用传递的值
+        }
+
 
       },
       mounted(){
+        this.transmitValue = JSON.parse(JSON.stringify(this.getParams()))//将getParams传递的值深拷贝赋值给当前页面的变量
         document.onclick = ()=>{
           this.ifChangeStart = false;
           this.ifChangeEnd = false;

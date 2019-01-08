@@ -5,10 +5,10 @@
       <div class="yearBox">{{year}}</div>
       <Icon class="myArrowLeft" type="ios-arrow-back" size="18" @click.stop="prevYear" />
       <Icon class="myArrowRight" type="ios-arrow-forward" size="18" @click.stop="nextYear" />
-      <button class="quarterBtn" :class="addClass(1)" @click.stop="changeQuarter('-Q1')" :disabled="oneQuarter">一季度</button>
-      <button class="quarterBtn" :class="addClass(2)" @click.stop="changeQuarter('-Q2')" :disabled="twoQuarter">二季度</button>
-      <button class="quarterBtn" :class="addClass(3)" @click.stop="changeQuarter('-Q3')" :disabled="threeQuarter">三季度</button>
-      <button class="quarterBtn" :class="addClass(4)" @click.stop="changeQuarter('-Q4')" :disabled="fourQuarter">四季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(1)" @click.stop="changeQuarter('-Q1')" :disabled="oneQuarter">一季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(2)" @click.stop="changeQuarter('-Q2')" :disabled="twoQuarter">二季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(3)" @click.stop="changeQuarter('-Q3')" :disabled="threeQuarter">三季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(4)" @click.stop="changeQuarter('-Q4')" :disabled="fourQuarter">四季度</button>
     </div>
   </div>
 </template>
