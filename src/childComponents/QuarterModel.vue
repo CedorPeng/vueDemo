@@ -30,23 +30,32 @@
         }
       },
       watch:{
+        /**
+         * @监听年份的变化
+         * */
         year(val){
           this.compareTime()
         },
       },
       created(){
-        this.currentCompare = this.compare;
-        this.compareRule = this.timeType;
-        this.year = this.currentTime && this.currentTime.split('-Q')[0] || new Date().getFullYear();
-        this.currentQuarter = this.currentTime && this.currentTime.split('-Q')[1] || ''
+        this.currentCompare = this.compare;//接收传过来的对比的时间
+        this.compareRule = this.timeType;//接收传过来的选择状态 start end
+        this.year = this.currentTime && this.currentTime.split('-Q')[0] || new Date().getFullYear();//接收传递过来的当前时间的年份
+        this.currentQuarter = this.currentTime && this.currentTime.split('-Q')[1] || '';//接收传递过来的当前时间的季度
       },
       mounted(){
         this.compareTime();
       },
       methods:{
+        /**
+         * @将传入的时间转换为毫秒
+         * */
         quarterTransition(time){
           return new Date(time).getTime();
         },
+        /**
+         * @将当前季度转换为毫秒
+         * */
         nowTimeTransition(quarter){
           let splitArr = quarter.split('-Q')
           let monthObj = {
@@ -57,23 +66,38 @@
           }
           return new Date(splitArr[0] + monthObj[splitArr[1]]).getTime()
         },
+        /**
+         * 往父组件传递值
+         * */
         emitQuarter(value){
           this.$emit('quarter',value)
         },
+        /**
+         * @年份切换-上一年
+         * */
         prevYear(){
           this.currentQuarter = '';
           this.year--;
         },
+        /**
+         * @年份切换-下一年
+         * */
         nextYear(){
           if(this.year < new Date().getFullYear()){
             this.year++;
             this.currentQuarter = '';
           }
         },
+        /**
+         * @选择季度触发的事件
+         * */
         changeQuarter(value){
           let paramsTime = this.year + value;
           this.emitQuarter(paramsTime)
         },
+        /**
+        * @当前选择器的时间和需要做对比的值来确定是否disabled
+        * */
         compareTime(){
           let oneTime = this.quarterTransition(this.year + '-03');
           let twoTime = this.quarterTransition(this.year + '-06');
@@ -93,12 +117,21 @@
             this.fourQuarter = fourTime > timeNow;
           }
         },
+        /**
+        * @改变被选择的样式
+        * */
         addClass(quarterIndex){
           if( quarterIndex == this.currentQuarter ){
             return 'quarterChoose'
           }
         }
       },
+      /**
+      * @父页面传递的数据
+      * @ compare       {String}   需要做对比的时间
+      * @ timeType      {String}   需要选择的状态 start end
+      * @ currentTime   {String}   需要接收的当前时间
+      * */
       props:['compare','timeType','currentTime']
     }
 </script>

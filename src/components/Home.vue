@@ -4,26 +4,6 @@
       <Row :gutter="10">
         <Col span="6">
           <FormItem label="报税期间">
-            <Col span="24">
-              <DatePicker type="month" placeholder="Select date"></DatePicker>
-            </Col>
-          </FormItem>
-        </Col>
-        <!--<Col span="6">-->
-          <!--<FormItem label="报税期间">-->
-            <!--<Col span="11">-->
-              <!--<QuarterSelect :paramsTime="paramsStart" v-on:quarter="getStartTime"></QuarterSelect>-->
-            <!--</Col>-->
-            <!--<Col span="2">-->
-              <!-- - -->
-            <!--</Col>-->
-            <!--<Col span="11">-->
-              <!--<QuarterSelect :paramsTime="paramsEnd" v-on:quarter="getEndTime"></QuarterSelect>-->
-            <!--</Col>-->
-          <!--</FormItem>-->
-        <!--</Col>-->
-        <Col span="6">
-          <FormItem label="报税期间">
             <Col span="11">
               <div class="quarterBox" @mouseout="startMouseout" @mouseover="startMouseover">
                 <input class="quarterSelect" placeholder="请选择季度" v-model="startTime" type="text" readonly @click.stop="changeStartBlock">
@@ -49,7 +29,6 @@
             </Col>
           </FormItem>
         </Col>
-
       </Row>
 
     </Form>
@@ -57,7 +36,7 @@
 </template>
 
 <script>
-  import QuarterModel from './childComponents/QuarterModel'
+  import QuarterModel from '../childComponents/QuarterModel'
     export default {
       name: "Home",
       data(){
