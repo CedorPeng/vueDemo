@@ -10,9 +10,9 @@
                 <input class="quarterSelect" placeholder="请选择季度" v-model="startTime" type="text" readonly @click.stop="changeStartBlock">
                 <Icon size="16" v-if="hasStartTime" type="ios-calendar-outline" class="monthIcon" />
                 <Icon size="16" v-if="!hasStartTime" type="ios-close-circle" class="cancelIcon" @click.stop="clearStartQuarter" />
-                <div class="changeQuarterModel" v-if="ifChangeStart">
-                  <QuarterModel timeType="start" :currentTime="startTime" :compare="endTime" v-on:quarter="getStartTime"></QuarterModel>
-                </div>
+              </div>
+              <div class="changeQuarterModel" v-if="ifChangeStart">
+                <QuarterModel timeType="start" :currentTime="startTime" :compare="endTime" v-on:quarter="getStartTime"></QuarterModel>
               </div>
             </Col>
             <Col span="2">
@@ -23,9 +23,9 @@
                 <input class="quarterSelect" placeholder="请选择季度" v-model="endTime" type="text" readonly @click.stop="changeEndBlock">
                 <Icon size="16" v-if="hasEndTime" type="ios-calendar-outline" class="monthIcon" />
                 <Icon size="16" v-if="!hasEndTime" type="ios-close-circle" class="cancelIcon" @click.stop="clearEndQuarter" />
-                <div class="changeQuarterModel" v-if="ifChangeEnd">
-                  <QuarterModel timeType="end" :currentTime="endTime" :compare="startTime" v-on:quarter="getEndTime"></QuarterModel>
-                </div>
+              </div>
+              <div class="changeQuarterModel" v-if="ifChangeEnd">
+                <QuarterModel timeType="end" :currentTime="endTime" :compare="startTime" v-on:quarter="getEndTime"></QuarterModel>
               </div>
             </Col>
           </FormItem>
