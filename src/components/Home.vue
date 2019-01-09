@@ -39,7 +39,7 @@
 <script>
   import QuarterModel from '../childComponents/QuarterModel'
   import {mapGetters} from 'vuex'//引入vuex的mapGetters方法
-  import {cedorUtils} from "../util/base";
+  import {CedorUtils} from "../util/base";
 
   export default {
       name: "Home",
@@ -52,7 +52,7 @@
           ifChangeStart:false,
           ifChangeEnd:false,
           transmitValue:'',
-          util:new cedorUtils(),
+          util:new CedorUtils(),
         }
       },
       methods:{
@@ -118,7 +118,7 @@
           // console.log(this.util.sortArray([1, 1, 1, 13, 3, 3, 34, 4, 4, 2, 6, 7, 8, 4]));
           // console.log(this.util.concatArray([ 6, 7, 8, 4],[3,4,5,6]));
           // console.log(this.util.getUrlHash('http://www.my.com?id=3&name=cedor&product=phone').name);
-          // console.log(this.util.setTimeFilter(1519862400000,'YYYY/MM/DD'))
+          console.log(this.util.setTimeFilter(1519862400000,'YYYY-MM-DD hh:mm:ss'))
         }
 
 

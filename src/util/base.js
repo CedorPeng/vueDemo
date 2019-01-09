@@ -1,9 +1,9 @@
-export const cedorUtils = ()=>{
-  this.name = 'cedor';
-  this.age = 26
+export const CedorUtils = function(){
+  this.name = 'Cedor';
+  this.age = 26;
 }
 
-cedorUtils.prototype = {
+CedorUtils.prototype = {
   /**
    * @获取localStorage中的属性值
    * */
@@ -89,10 +89,12 @@ cedorUtils.prototype = {
    * @个位数 + 0
    * */
   unidigitAddZero:value=>{
-    return value < 0 ? '0' + value : value;
+    return value < 10 ? '0' + value : value;
   },
   /**
    * @时间戳转换YYYY-MM-DD HH-mm-ss
+   * @value   {Date}   需要处理的时间戳
+   * @format  {String} 处理成的格式 'YYYY-MM-DD YYYY-MM-DD hh:mm:ss YYYY/MM/DD YYYY/MM/DD hh:mm:ss'
    * */
   setTimeFilter:function(value,format){
     let time = new Date(value)
@@ -108,21 +110,23 @@ cedorUtils.prototype = {
       case 'YYYY-MM-DD':
         result = Y + '-' + M + '-' + D;
         break;
-      case 'YYYY-MM-DD hh-mm-ss' :
-        result = Y + '-' + M + '-' + D + ' ' + h + '-' + m + '-' + s;
+      case 'YYYY-MM-DD hh:mm:ss' :
+        result = Y + '-' + M + '-' + D + ' ' + h + ':' + m + ':' + s;
         break;
       case 'YYYY/MM/DD':
         result = Y + '/' + M + '/' + D;
         break;
-      case 'YYYY/MM/DD hh/mm/ss' :
-        result = Y + '/' + M + '/' + D + ' ' + h + '/' + m + '/' + s;
+      case 'YYYY/MM/DD hh:mm:ss' :
+        result = Y + '/' + M + '/' + D + ' ' + h + ':' + m + ':' + s;
         break;
       default:
         break;
     }
     return result;
-
-  }
+  },
+  /**
+   *
+   * */
 
 
 }
