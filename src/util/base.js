@@ -41,9 +41,7 @@ CedorUtils.prototype = {
    * @字符串去掉全部空格
    * */
   trimString:value=>{
-    let reg = new RegExp(' ','g');
-    let str = value.replace(reg,'');
-    return str;
+    return value.replace(/\s/g,'');
   },
   /**
    * @数组去重
@@ -125,8 +123,69 @@ CedorUtils.prototype = {
     return result;
   },
   /**
-   *
+   * @正则验证小数  decimals 小数
+   * @+一次或多次 ?0次或多次 {m}必须m次 {m,}最少m次 {m,n}出现m-n次
    * */
+  validateDecimals:value=>{
+    let reg = /^[+-]?\d+(\.\d+)?$/;
+    return reg.test(value);
+  },
+  /**
+   * @正则验证千分位数字
+   * */
+  validateThousand:value=>{
+    let reg = /^[+-]?\d{1,3}(,\d{3})*(.\d+)?$/;
+    return reg.test(value);
+  },
+  /**
+   * @正则验证正负整数
+   * */
+  validateInteger:value=>{
+    let reg = /^[+-]?\d+$/;
+    return reg.test(value);
+  },
+  /**
+   * @正则验证email
+   * */
+  validateEmail:value=>{
+    let reg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+    return reg.test(value);
+  },
+  /**
+   * @全局提取email
+   * */
+  extractAllEmail:value=>{
+    return value.match(/[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}/g)
+  },
+  /**
+   * @正则验证手机号
+   * */
+  validatePhone:value=>{
+    let reg = /^1([358]\d|4[579]|66|7[0135678]|9[89])\d{8}$/;
+    return reg.test(value);
+  },
+  /**
+   * @正则验证数字和英文(非中文以及标点)
+   * */
+  validateNoneChinese:value=>{
+    let reg = /^[a-zA-Z0-9]+$/;
+    return reg.test(value);
+  },
+  /**
+   * @正则验证数字英文包括下划线(非中文以及特殊标点)
+   * */
+  validateNoneChinese_:value=>{
+    let reg = /^\w+$/;
+    return reg.test(value);
+  },
+  /**
+   * @正则验证纯英文
+   * @\.\+\$表示解译可匹配的用来添加可匹配的特殊符号
+   * */
+  validateEnglish:value=>{
+    let reg = /^[a-zA-Z]{3}$/;
+    return reg.test(value);
+  },
 
 
 }

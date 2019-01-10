@@ -118,7 +118,17 @@
           // console.log(this.util.sortArray([1, 1, 1, 13, 3, 3, 34, 4, 4, 2, 6, 7, 8, 4]));
           // console.log(this.util.concatArray([ 6, 7, 8, 4],[3,4,5,6]));
           // console.log(this.util.getUrlHash('http://www.my.com?id=3&name=cedor&product=phone').name);
-          console.log(this.util.setTimeFilter(1519862400000,'YYYY-MM-DD hh:mm:ss'))
+          // console.log(this.util.setTimeFilter(1519862400000,'YYYY-MM-DD hh:mm:ss'))
+          // console.log(this.util.validateDecimals('-1,400,000.2311'))
+          // console.log(this.util.validateThousand('-1,400,000.2311'))
+          // console.log(this.util.validateInteger('-12311'))
+          // console.log(this.util.validateEmail('17600_peng834351@qq.com'))
+          // console.log(this.util.validateNoneChinese('17600peng834351qqcom'))
+          // console.log(this.util.validateEnglish('pengq.q_com_'))
+          // console.log(this.util.validateNoneChinese(''))
+          // console.log(this.util.replaceString('老子今天不上班','上','下'))
+          // console.log('老子今天不上班'.replace(/\上/g, '下'));
+
         }
 
 

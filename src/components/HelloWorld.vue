@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <div ref="mydiv"></div>
     <router-link to="/home">Go Home</router-link>
+    <br>
     <Button type="default" @click="transmit" >传递值</Button>
   </div>
 </template>
@@ -19,8 +19,6 @@ export default {
 
   },
   mounted(){
-    this.$refs.mydiv.innerHTML = '哈哈'
-    this.$refs.mydiv.style.color = 'red'
   },
   methods:{
     ...mapActions(['clickParams']),//注册clickParams方法
