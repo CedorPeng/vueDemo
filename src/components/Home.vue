@@ -38,7 +38,7 @@
 
 <script>
   import QuarterModel from '../childComponents/QuarterModel'
-  import {mapGetters} from 'vuex'//引入vuex的mapGetters方法
+  import {mapState} from 'vuex'//引入vuex的mapGetters方法
   import {CedorUtils} from "../util/base";
 
   export default {
@@ -55,8 +55,15 @@
           util:new CedorUtils(),
         }
       },
+      computed:{
+        ...mapState({
+          params:'parmas'
+
+
+        }),
+      },
       methods:{
-        ...mapGetters(['getParams']),//注册getParams方法
+        // ...mapGetters(['getParams']),//注册getParams方法
         getStartTime(time){
           this.startTime = time;
           this.ifChangeStart = false;
@@ -134,11 +141,12 @@
 
       },
       mounted(){
-        this.transmitValue = JSON.parse(JSON.stringify(this.getParams()))//将getParams传递的值深拷贝赋值给当前页面的变量
+        // this.transmitValue = JSON.parse(JSON.stringify(this.getParams()))//将getParams传递的值深拷贝赋值给当前页面的变量
         document.onclick = ()=>{
           this.ifChangeStart = false;
           this.ifChangeEnd = false;
         }
+        console.log();
 
       },
       components:{

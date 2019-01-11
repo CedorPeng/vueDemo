@@ -7,25 +7,25 @@ CedorUtils.prototype = {
   /**
    * @获取localStorage中的属性值
    * */
-  getLocalValue:(name)=>{
+  getLocalValue:function(name){
     return JSON.parse(localStorage.getItem(name)) || ''
   },
   /**
    * @设置localStorage中的属性
    * */
-  setLocalValue:(name,value)=>{
+  setLocalValue:function(name,value){
     localStorage.setItem(name,value)
   },
   /**
    * @移除localStorage中的属性
    * */
-  removeLocalValue:(name)=>{
+  removeLocalValue:function(name){
     localStorage.removeItem(name)
   },
   /**
    * @数字转换千分位
    * */
-  setThousand:(value,place)=>{
+  setThousand:function(value,place){
     value = value || 0;
     place = !isNaN(place = Math.abs(place)) ? place : 2;
     let thousand = ',',decimal = '.',
@@ -40,13 +40,13 @@ CedorUtils.prototype = {
   /**
    * @字符串去掉全部空格
    * */
-  trimString:value=>{
+  trimString:function(value){
     return value.replace(/\s/g,'');
   },
   /**
    * @数组去重
    * */
-  removeRepeat:value=>{
+  removeRepeat:function(value){
     let arr = [],obj={};
     for (let i = 0 ; i < value.length ; i++){
       if(!obj[value[i]]){
@@ -59,7 +59,7 @@ CedorUtils.prototype = {
   /**
    * @数组排序
    * */
-  sortArray:value=>{
+  sortArray:function(value){
     let sortNum = (a,b)=>{
       return a - b;
     }
@@ -68,13 +68,13 @@ CedorUtils.prototype = {
   /**
    * @数组拼接
    * */
-  concatArray:(value1,value2)=>{
+  concatArray:function(value1,value2){
     return value1.concat(value2)
   },
   /**
    * @从url中获取hash
    * */
-  getUrlHash:value=>{
+  getUrlHash:function(value){
     const keyValueArr = value.split('?')[1].split('&');
     let hashObject = {};
     keyValueArr.forEach(item=>{
@@ -86,7 +86,7 @@ CedorUtils.prototype = {
   /**
    * @个位数 + 0
    * */
-  unidigitAddZero:value=>{
+  unidigitAddZero:function(value){
     return value < 10 ? '0' + value : value;
   },
   /**
@@ -126,55 +126,55 @@ CedorUtils.prototype = {
    * @正则验证小数  decimals 小数
    * @+一次或多次 ?0次或多次 {m}必须m次 {m,}最少m次 {m,n}出现m-n次
    * */
-  validateDecimals:value=>{
+  validateDecimals:function(value){
     let reg = /^[+-]?\d+(\.\d+)?$/;
     return reg.test(value);
   },
   /**
    * @正则验证千分位数字
    * */
-  validateThousand:value=>{
+  validateThousand:function(value){
     let reg = /^[+-]?\d{1,3}(,\d{3})*(.\d+)?$/;
     return reg.test(value);
   },
   /**
    * @正则验证正负整数
    * */
-  validateInteger:value=>{
+  validateInteger:function(value){
     let reg = /^[+-]?\d+$/;
     return reg.test(value);
   },
   /**
    * @正则验证email
    * */
-  validateEmail:value=>{
+  validateEmail:function(value){
     let reg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
     return reg.test(value);
   },
   /**
    * @全局提取email
    * */
-  extractAllEmail:value=>{
+  extractAllEmail:function(value){
     return value.match(/[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}/g)
   },
   /**
    * @正则验证手机号
    * */
-  validatePhone:value=>{
+  validatePhone:function(value){
     let reg = /^1([358]\d|4[579]|66|7[0135678]|9[89])\d{8}$/;
     return reg.test(value);
   },
   /**
    * @正则验证数字和英文(非中文以及标点)
    * */
-  validateNoneChinese:value=>{
+  validateNoneChinese:function(value){
     let reg = /^[a-zA-Z0-9]+$/;
     return reg.test(value);
   },
   /**
    * @正则验证数字英文包括下划线(非中文以及特殊标点)
    * */
-  validateNoneChinese_:value=>{
+  validateNoneChinese_:function(value){
     let reg = /^\w+$/;
     return reg.test(value);
   },
@@ -182,7 +182,7 @@ CedorUtils.prototype = {
    * @正则验证纯英文
    * @\.\+\$表示解译可匹配的用来添加可匹配的特殊符号
    * */
-  validateEnglish:value=>{
+  validateEnglish:function(value){
     let reg = /^[a-zA-Z]{3}$/;
     return reg.test(value);
   },
