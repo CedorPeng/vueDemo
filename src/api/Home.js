@@ -9,8 +9,8 @@ export const getPostValue = (data) => {
 }
 export const getGetValue = (data) => {
   return HTTP({
-    url:'/test/test/getValue',
+    url:'test/test',
     method:'get',
-    data
+    params : data,
   })
 }

@@ -39,7 +39,8 @@
 <script>
   import QuarterModel from '../childComponents/QuarterModel'
   import {mapState} from 'vuex'//引入vuex的mapGetters方法
-  import {CedorUtils} from "../util/base";
+  import {CedorUtils} from "../util/base"
+  import * as api from '../api/Home'
 
   export default {
       name: "Home",
@@ -135,6 +136,9 @@
           // console.log(this.util.validateNoneChinese(''))
           // console.log(this.util.replaceString('老子今天不上班','上','下'))
           // console.log('老子今天不上班'.replace(/\上/g, '下'));
+          api.getGetValue({msg:111}).then(res=>{
+            console.log(res);
+          })
 
         }
 
