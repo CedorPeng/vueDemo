@@ -119,12 +119,13 @@
           // }
           // this.util.setLocalValue('firstParams',JSON.stringify(params))
           // let newparams = this.util.getLocalValue('firstParams');
+
           // newparams.age = 27;
           // this.util.setLocalValue('firstParams',JSON.stringify(newparams))
           // console.log(this.util.setThousand('-300', 1));
           // console.log(this.util.trimString('   -3 0 0   '));
           // console.log(this.util.sortArray([1, 1, 1, 13, 3, 3, 34, 4, 4, 2, 6, 7, 8, 4]));
-          // console.log(this.util.concatArray([ 6, 7, 8, 4],[3,4,5,6]));
+          // console.log(this.util.removeRepeat(this.util.sortArray(this.util.concatArray([ 6, 7, 8, 4],[3,4,5,6]))));
           // console.log(this.util.getUrlHash('http://www.my.com?id=3&name=cedor&product=phone').name);
           // console.log(this.util.setTimeFilter(1519862400000,'YYYY-MM-DD hh:mm:ss'))
           // console.log(this.util.validateDecimals('-1,400,000.2311'))
@@ -136,9 +137,9 @@
           // console.log(this.util.validateNoneChinese(''))
           // console.log(this.util.replaceString('老子今天不上班','上','下'))
           // console.log('老子今天不上班'.replace(/\上/g, '下'));
-          api.getGetValue({msg:111}).then(res=>{
-            console.log(res);
-          })
+          // api.getGetValue({msg:111}).then(res=>{
+          //   console.log(res);
+          // })
 
         }
 

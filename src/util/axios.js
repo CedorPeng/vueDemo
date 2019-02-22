@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const envConfig = {
   production:'/',
-  development:'http://localhost:8081/'
+  development:'http://localhost:8080/'
 }
 
 export const baseURL = envConfig[process.env.NODE_ENV || 'development']

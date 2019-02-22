@@ -47,14 +47,24 @@ CedorUtils.prototype = {
    * @数组去重
    * */
   removeRepeat:function(value){
-    let arr = [],obj={};
+    // let arr = [],obj={};
+    // for (let i = 0 ; i < value.length ; i++){
+    //   if(!obj[value[i]]){
+    //     arr.push(value[i]);
+    //     obj[value[i]] = 1;
+    //   }
+    // }
+    return [...new Set(value)]
+  },
+  /**
+   * @数组求和
+   * */
+  totalCount:function(value){
+    let result = 0;
     for (let i = 0 ; i < value.length ; i++){
-      if(!obj[value[i]]){
-        arr.push(value[i]);
-        obj[value[i]] = 1;
-      }
+      result += value[i]
     }
-    return arr
+    return result
   },
   /**
    * @数组排序
@@ -69,7 +79,8 @@ CedorUtils.prototype = {
    * @数组拼接
    * */
   concatArray:function(value1,value2){
-    return value1.concat(value2)
+    // return value1.concat(value2)
+    return [...value1,...value2]
   },
   /**
    * @从url中获取hash
