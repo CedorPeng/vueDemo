@@ -197,6 +197,26 @@ CedorUtils.prototype = {
     let reg = /^[a-zA-Z]{3}$/;
     return reg.test(value);
   },
+  /**
+   * @深拷贝
+   * oldValue 需要被处理的变量
+   * */
+  deepCopy:function (oldValue) {
+    // let newValue = {};
+    // if(typeof oldValue === 'object' && oldValue instanceof Array){
+    //   newValue = [];
+    // }
+    // for (let key in oldValue){
+    //   if(typeof oldValue[key] === 'object'){
+    //     newValue[key] = this.deepCopy(oldValue[key]);
+    //   }else{
+    //     newValue[key] = oldValue[key];
+    //   }
+    // }
+    // return newValue
+    return JSON.parse(JSON.stringify(oldValue))
+  }
+
 
 
 }

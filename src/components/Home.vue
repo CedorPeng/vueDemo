@@ -140,6 +140,16 @@
           // api.getGetValue({msg:111}).then(res=>{
           //   console.log(res);
           // })
+          // console.log(this.util.totalCount([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+          let oldObj = {
+            a:1,
+            b:{
+              c:2
+            }
+          }
+          let newObj = this.util.deepCopy(oldObj)
+          newObj.b.c = 3;
+          console.log(oldObj,newObj);
 
         }
 
