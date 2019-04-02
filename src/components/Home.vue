@@ -38,7 +38,16 @@
 
 <script>
   import QuarterModel from '../childComponents/QuarterModel'
-  import {mapState} from 'vuex'//引入vuex的mapGetters方法
+  // import {mapState} from 'vuex'//引入vuex的mapGetters方法
+  /**
+   * @vuex传值的方法二 : 接收值
+   * @引入vuex接收值的mapGetters
+   * @在computed中注册接收值的方法  语法: ...mapGetters(['getters模块中命名的方法'])
+   * @直接使用该方法return出来的值
+   * @例如:  直接使用this.getParams
+   * @       用vue中声明的值接收之后在使用  this.transmitValue = this.getParams
+   * */
+  import {mapGetters} from 'vuex'
   import {CedorUtils} from "../util/base"
   import * as api from '../api/Home'
 
@@ -57,11 +66,15 @@
         }
       },
       computed:{
-        ...mapState({
-          params:'parmas'
+        // ...mapState({
+        //   params:'parmas'
+        // }),
 
-
-        }),
+        // 方法二: 直接在computed里面引入获取params的方法
+        ...mapGetters(['getParams']),
+      },
+      created(){
+        this.transmitValue = this.getParams
       },
       methods:{
         // ...mapGetters(['getParams']),//注册getParams方法
@@ -161,7 +174,7 @@
           this.ifChangeStart = false;
           this.ifChangeEnd = false;
         }
-        console.log();
+        console.log(this.transmitValue.id);
 
       },
       components:{

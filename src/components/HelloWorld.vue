@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'//引入vuex的mapActions方法
+// import {mapActions} from 'vuex'//方法一:引入vuex的mapActions方法
 export default {
   name: 'HelloWorld',
   data () {
@@ -21,11 +21,18 @@ export default {
   mounted(){
   },
   methods:{
-    ...mapActions(['clickParams']),//注册clickParams方法
+    // ...mapActions(['clickParams']),//方法一:注册clickParams方法
     transmit(){
-      this.clickParams({//使用clickParams传递数据
-        value:'newTransmit'
-      })
+      // this.clickParams({//方法一:使用clickParams传递数据
+      //   value:'newTransmit'
+      // })
+
+      /***
+       * @用vuex传值的方法二 : 传递值
+       * @直接使用$store.dispatch
+       * @语法 : this.$store.dispatch('传递值的actions方法',需要传递的值)
+       */
+      this.$store.dispatch('clickParams',{id:4,name:'Cedor'})
     }
   }
 }
