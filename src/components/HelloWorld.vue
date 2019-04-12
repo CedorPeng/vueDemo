@@ -3,6 +3,10 @@
     <router-link to="/home">Go Home</router-link>
     <br>
     <Button type="default" @click="transmit" >传递值</Button>
+    <div class="model-edit__title" >
+      <span>能变大吗?</span>
+      <span class="model-edit__title--disabled">过时</span>
+    </div>
   </div>
 </template>
 
@@ -39,7 +43,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style lang="less" scoped>
 h1, h2 {
   font-weight: normal;
 }
@@ -54,4 +58,27 @@ li {
 a {
   color: #42b983;
 }
+@green : #458C67;
+.model {
+  &-edit {
+    &__title {
+      font-size: 25px;
+      color: @green;
+      &--disabled {
+         color: gray;
+      }
+    }
+  }
+}
+/*@component-namespace model{*/
+  /*@b edit{*/
+    /*@e title{*/
+      /*font-size: 30px;*/
+      /*@m disabled {*/
+        /*color: gray;*/
+      /*}*/
+    /*}*/
+
+  /*}*/
+/*}*/
 </style>
