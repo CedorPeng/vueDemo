@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 /**
  * @页面刷新不丢失vuex传值的插件
  * @ npm install vuex-persistedstate
-  */
+ * */
 import createPersistence from 'vuex-persistedstate'
 
 Vue.use(Vuex)
