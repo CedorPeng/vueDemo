@@ -5,8 +5,7 @@ import Home from '../components/Home'
 import inputValidate from '../components/inputValidate'
 
 Vue.use(Router)
-
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -16,7 +15,7 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home 
+      component: Home
     },
     {
       path: '/inputValidate',
@@ -25,3 +24,13 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to,from,next)=>{
+  let path;
+  if(to.path.split('/').length > 2){
+    path = '/' + to.path.split('/')[1]
+  }else{
+    path = to.path
+  }
+})
+export default router
