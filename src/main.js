@@ -9,7 +9,7 @@ import store from './store'
 import './assets/style/base.less'
 
 Vue.use(iView)
-
+Vue.prototype.eventBus = new Vue()
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

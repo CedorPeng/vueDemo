@@ -7,6 +7,9 @@
       <span>能变大吗?</span>
       <span class="model-edit__title--disabled">过时</span>
     </div>
+    <div>
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -24,6 +27,11 @@ export default {
   },
   mounted(){
   },
+  created(){
+    this.eventBus.$on('close',(name)=>{
+      this.close(name)
+    })
+  },
   methods:{
     // ...mapActions(['clickParams']),//方法一:注册clickParams方法
     transmit(){
@@ -37,7 +45,10 @@ export default {
        * @语法 : this.$store.dispatch('传递值的actions方法',需要传递的值)
        */
       this.$store.dispatch('clickParams',{id:4,name:'Cedor'})
-    }
+    },
+    close(name){
+      console.log(name);
+    },
   }
 }
 </script>
