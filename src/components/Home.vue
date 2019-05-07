@@ -163,7 +163,8 @@
           // let newObj = this.util.deepCopy(oldObj)
           // newObj.b.c = 3;
           // console.log(oldObj,newObj);
-          this.eventBus.$emit('close','home')
+          // this.eventBus.$emit('close','home')
+          this.$Message.success('成功提示')
 
         }
 
