@@ -7,6 +7,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 import './assets/style/base.less'
+import htmlToPdf from './util/HtmlToPDF'
+Vue.use(htmlToPdf)
 
 Vue.use(iView)
 Vue.prototype.eventBus = new Vue()
