@@ -172,10 +172,10 @@
       },
       mounted(){
         // this.transmitValue = JSON.parse(JSON.stringify(this.getParams()))//将getParams传递的值深拷贝赋值给当前页面的变量
-        document.onclick = ()=>{
-          this.ifChangeStart = false;
-          this.ifChangeEnd = false;
-        }
+        // document.onclick = ()=>{
+        //   this.ifChangeStart = false;
+        //   this.ifChangeEnd = false;
+        // }
 
       },
       components:{
@@ -216,4 +216,5 @@
   .quarterSelect:hover{
     border: 1px solid #57a3f3;
   }
+
 </style>

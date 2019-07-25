@@ -1,7 +1,7 @@
 <template>
   <!--季度选择器-->
   <div>
-    <div class="everyQuarter">
+    <div class="everyQuarter" v-clickoutside="handleClickOutSide">
       <div class="yearBox">{{year}}</div>
       <Icon class="myArrowLeft" type="ios-arrow-back" size="18" @click.stop="prevYear" />
       <Icon class="myArrowRight" type="ios-arrow-forward" size="18" @click.stop="nextYear" />
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+    import clickoutside from '../util/clickoutside'
     export default {
       name: "QuarterModel",
       data(){
@@ -28,6 +29,9 @@
           threeQuarter:false,
           fourQuarter:false,
         }
+      },
+      directives: {
+          'clickoutside': clickoutside
       },
       watch:{
         /**
@@ -124,6 +128,9 @@
           if( quarterIndex == this.currentQuarter ){
             return 'quarterChoose'
           }
+        },
+        handleClickOutSide(){
+          console.log('我该消失了')
         }
       },
       /**

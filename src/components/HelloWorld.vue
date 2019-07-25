@@ -5,6 +5,7 @@
     <router-link to="/draggable">draggable</router-link>
     <br>
     <Button type="default" @click="transmit" >导出sheet</Button>
+    <Button type="default" @click="close" >跳转</Button>
     <Button type="default" @click="save" >转PDF并导出</Button>
     <div class="model-edit__title" >
       <span>能变大吗?</span>
@@ -38,9 +39,9 @@ export default {
   mounted(){
   },
   created(){
-    this.eventBus.$on('close',(name)=>{
-      this.close(name)
-    })
+    // this.eventBus.$on('close',(name)=>{
+    //   this.close(name)
+    // })
   },
   methods:{
     // ...mapActions(['clickParams']),//方法一:注册clickParams方法
@@ -68,7 +69,9 @@ export default {
       this.savePdf(canvas,this.title)
     },
     close(name){
-      console.log(name);
+      // console.log(name);
+      // this.$router.push({name:'news',params:{id:1}})
+      this.$router.push({path:'/news',query:{id:1}})
     },
   }
 }
