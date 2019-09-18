@@ -33,11 +33,17 @@
       </Row>
 
     </Form>
+    <HoverDropdown style="margin-right: 10px"></HoverDropdown>
+    <HoverDropdown style="margin-right: 10px"></HoverDropdown>
+    <HoverDropdown style="margin-right: 10px"></HoverDropdown>
+    <HoverDropdown style="margin-right: 10px"></HoverDropdown>
+    <HoverDropdown></HoverDropdown>
   </div>
 </template>
 
 <script>
   import QuarterModel from '../childComponents/QuarterModel'
+  import HoverDropdown from '../childComponents/HoverDropdown'
   // import {mapState} from 'vuex'//引入vuex的mapGetters方法
   /**
    * @vuex传值的方法二 : 接收值
@@ -179,7 +185,7 @@
 
       },
       components:{
-        QuarterModel
+        QuarterModel,HoverDropdown
       }
     }
 
