@@ -1,4 +1,8 @@
-export const CedorUtils = function(){
+/*
+* export default 当前js文件只导出一个对象
+* export 可以导出多个对象 并使用 * as api from '路径'
+* */
+const CedorUtils = function(){
   this.name = 'Cedor';
   this.age = 26;
 }
@@ -238,26 +242,26 @@ CedorUtils.prototype = {
   //     parentNode.show = true
   //   }
   // },
+  /*
+  * @两个数字相加  只能处理正常数值(被科学计数法处理的数值计算错误)
+  * */
+  countAndSay : function(A,B) {
+    let _A = (A+'').split('').reverse()
+    let _B = (B+'').split('').reverse()
+    let maxLength = Math.max(_A.length,_B.length)
+    for (var i = 0; i < maxLength; i++) {
+      let sum = parseInt(_A[i] || 0) + parseInt(_B[i] || 0)
+      if(sum >= 10){
+        _A[i] = sum - 10
+        _A[i+1] = (_A[i+1] || 0) + 1
+      }else{
+        _A[i] = sum
+      }
+    }
+    return _A.reverse().join('')
+  }
 
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default new CedorUtils()

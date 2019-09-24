@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import QuarterModel from '../childComponents/QuarterModel'
+  // import QuarterModel from '../childComponents/QuarterModel'
   import HoverDropdown from '../childComponents/HoverDropdown'
   // import {mapState} from 'vuex'//引入vuex的mapGetters方法
   /**
@@ -33,7 +33,6 @@
    * @       用vue中声明的值接收之后在使用  this.transmitValue = this.getParams
    * */
   import {mapGetters} from 'vuex'
-  import {CedorUtils} from "../util/base"
   import * as api from '../api/Home'
 
   export default {
@@ -43,7 +42,6 @@
           startTime:'',
           endTime:'',
           transmitValue:'',
-          util:new CedorUtils(),
         }
       },
       computed:{
@@ -64,41 +62,42 @@
           //   name:'彭旭灿',
           //   age:26
           // }
-          // this.util.setLocalValue('firstParams',JSON.stringify(params))
-          // let newparams = this.util.getLocalValue('firstParams');
+          // this.CedorUtils.setLocalValue('firstParams',JSON.stringify(params))
+          // let newparams = this.CedorUtils.getLocalValue('firstParams');
 
           // newparams.age = 27;
-          // this.util.setLocalValue('firstParams',JSON.stringify(newparams))
-          // console.log(this.util.setThousand('-300', 1));
-          // console.log(this.util.trimString('   -3 0 0   '));
-          // console.log(this.util.sortArray([1, 1, 1, 13, 3, 3, 34, 4, 4, 2, 6, 7, 8, 4]));
-          // console.log(this.util.removeRepeat(this.util.sortArray(this.util.concatArray([ 6, 7, 8, 4],[3,4,5,6]))));
-          // console.log(this.util.getUrlHash('http://www.my.com?id=3&name=cedor&product=phone').name);
-          // console.log(this.util.setTimeFilter(1519862400000,'YYYY-MM-DD hh:mm:ss'))
-          // console.log(this.util.validateDecimals('-1,400,000.2311'))
-          // console.log(this.util.validateThousand('-1,400,000.2311'))
-          // console.log(this.util.validateInteger('-12311'))
-          // console.log(this.util.validateEmail('17600_peng834351@qq.com'))
-          // console.log(this.util.validateNoneChinese('17600peng834351qqcom'))
-          // console.log(this.util.validateEnglish('pengq.q_com_'))
-          // console.log(this.util.validateNoneChinese(''))
-          // console.log(this.util.replaceString('老子今天不上班','上','下'))
+          // this.CedorUtils.setLocalValue('firstParams',JSON.stringify(newparams))
+          // console.log(this.CedorUtils.setThousand('-300', 1));
+          // console.log(this.CedorUtils.trimString('   -3 0 0   '));
+          // console.log(this.CedorUtils.sortArray([1, 1, 1, 13, 3, 3, 34, 4, 4, 2, 6, 7, 8, 4]));
+          // console.log(this.CedorUtils.removeRepeat(this.CedorUtils.sortArray(this.CedorUtils.concatArray([ 6, 7, 8, 4],[3,4,5,6]))));
+          // console.log(this.CedorUtils.getUrlHash('http://www.my.com?id=3&name=cedor&product=phone').name);
+          // console.log(this.CedorUtils.setTimeFilter(1519862400000,'YYYY-MM-DD hh:mm:ss'))
+          // console.log(this.CedorUtils.validateDecimals('-1,400,000.2311'))
+          // console.log(this.CedorUtils.validateThousand('-1,400,000.2311'))
+          // console.log(this.CedorUtils.validateInteger('-12311'))
+          // console.log(this.CedorUtils.validateEmail('17600_peng834351@qq.com'))
+          // console.log(this.CedorUtils.validateNoneChinese('17600peng834351qqcom'))
+          // console.log(this.CedorUtils.validateEnglish('pengq.q_com_'))
+          // console.log(this.CedorUtils.validateNoneChinese(''))
+          // console.log(this.CedorUtils.replaceString('老子今天不上班','上','下'))
           // console.log('老子今天不上班'.replace(/\上/g, '下'));
           // api.getGetValue({msg:111}).then(res=>{
           //   console.log(res);
           // })
-          // console.log(this.util.totalCount([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+          console.log(this.CedorUtils.totalCount([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
           // let oldObj = {
           //   a:1,
           //   b:{
           //     c:2
           //   }
           // }
-          // let newObj = this.util.deepCopy(oldObj)
+          // let newObj = this.CedorUtils.deepCopy(oldObj)
           // newObj.b.c = 3;
           // console.log(oldObj,newObj);
           // this.eventBus.$emit('close','home')
-          this.$Message.success('成功提示')
+          // this.$Message.success('成功提示')
+          // console.log(this.CedorUtils.countAndSay('1234512351231323132345','1234'));
 
         },
         startTimeChange(value){
@@ -112,7 +111,7 @@
 
       },
       components:{
-        QuarterModel,HoverDropdown
+        HoverDropdown
       }
     }
 

@@ -35,5 +35,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 3.css通过'postcss'和'less'使用'bem'规范
 4.使用'vuex-persistedstate'插件  刷新页面不丢失vuex传递的值
 5.通过面向对象添加一些常用的方法和正则校验
+6.使用v-model实现组件之间的双向数据绑定
+7.使用自定义指令优化,点击非自身控制当前组件内部的v-if
+8.export default 和 export 的使用环境
+9.将自己的组件通过 Vue.component(组件名,导入的文件) 方法设置为全局组件
+10.将自己的工具类挂在全局this下
 */
 
