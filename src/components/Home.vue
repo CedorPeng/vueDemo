@@ -1,20 +1,22 @@
 <template>
   <div>
     <Button type="default" @click="useTransmit">使用传递的值</Button>
-    <QuarterModel
-      style="width: 300px;display: inline-block;"
-      v-model="startTime"
-      type="start"
-      :compare="endTime"
-      @change="startTimeChange"
-    ></QuarterModel>
-    <QuarterModel
-      style="width: 300px;display: inline-block;"
-      v-model="endTime"
-      type="end"
-      :compare="startTime"
-      @change="startTimeChange"
-    ></QuarterModel>
+    <div>
+      <QuarterModel
+        style="width: 300px;display: inline-block;"
+        v-model="startTime"
+        type="start"
+        :compare="endTime"
+        @change="startTimeChange"
+      ></QuarterModel>
+      <QuarterModel
+        style="width: 300px;display: inline-block;"
+        v-model="endTime"
+        type="end"
+        :compare="startTime"
+        @change="startTimeChange"
+      ></QuarterModel>
+    </div>
   </div>
 </template>
 

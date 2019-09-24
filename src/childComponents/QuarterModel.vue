@@ -1,19 +1,19 @@
 <template>
   <!--季度选择器-->
-  <div v-clickoutside="handleClickOutSide">
-    <div class="quarterBox" @mouseover="quarterMouseover" @mouseout="clearable=false">
+  <div class="quarterBox" v-clickoutside="handleClickOutSide">
+    <div @mouseover="quarterMouseover" @mouseout="clearable=false">
       <input class="quarterSelect" v-model="value" placeholder="请选择季度" type="text" readonly @click="select = true">
       <Icon v-if="!clearable" size="16" type="ios-calendar-outline" class="monthIcon" style="z-index: -1;"/>
       <Icon v-else size="16" type="ios-close-circle" class="cancelIcon" @click.step="changeQuarter('')" style="z-index: 2;"/>
-      <div class="everyQuarter" v-if="select">
-        <div class="yearBox">{{year}}</div>
-        <Icon class="myArrowLeft" type="ios-arrow-back" size="22" @click.stop="prevYear" />
-        <Icon class="myArrowRight" type="ios-arrow-forward" size="22" @click.stop="nextYear" />
-        <button type="button" class="quarterBtn" :class="addClass(1)" @click.stop="changeQuarter('-Q1')" :disabled="oneQuarter">一季度</button>
-        <button type="button" class="quarterBtn" :class="addClass(2)" @click.stop="changeQuarter('-Q2')" :disabled="twoQuarter">二季度</button>
-        <button type="button" class="quarterBtn" :class="addClass(3)" @click.stop="changeQuarter('-Q3')" :disabled="threeQuarter">三季度</button>
-        <button type="button" class="quarterBtn" :class="addClass(4)" @click.stop="changeQuarter('-Q4')" :disabled="fourQuarter">四季度</button>
-      </div>
+    </div>
+    <div class="everyQuarter" v-if="select">
+      <div class="yearBox">{{year}}</div>
+      <Icon class="myArrowLeft" type="ios-arrow-back" size="22" @click.stop="prevYear" />
+      <Icon class="myArrowRight" type="ios-arrow-forward" size="22" @click.stop="nextYear" />
+      <button type="button" class="quarterBtn" :class="addClass(1)" @click.stop="changeQuarter('-Q1')" :disabled="oneQuarter">一季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(2)" @click.stop="changeQuarter('-Q2')" :disabled="twoQuarter">二季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(3)" @click.stop="changeQuarter('-Q3')" :disabled="threeQuarter">三季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(4)" @click.stop="changeQuarter('-Q4')" :disabled="fourQuarter">四季度</button>
     </div>
   </div>
 </template>
