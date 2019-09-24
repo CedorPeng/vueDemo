@@ -1,43 +1,20 @@
 <template>
   <div>
     <Button type="default" @click="useTransmit">使用传递的值</Button>
-    <Form label-position="top">
-      <Row :gutter="10">
-        <Col span="6">
-          <FormItem label="报税期间">
-            <Col span="11">
-              <div class="quarterBox" @mouseout="startMouseout" @mouseover="startMouseover">
-                <input class="quarterSelect" placeholder="请选择季度" v-model="startTime" type="text" readonly @click.stop="changeStartBlock">
-                <Icon size="16" v-if="hasStartTime" type="ios-calendar-outline" class="monthIcon" />
-                <Icon size="16" v-if="!hasStartTime" type="ios-close-circle" class="cancelIcon" @click.stop="clearStartQuarter" />
-              </div>
-              <div class="changeQuarterModel" v-if="ifChangeStart">
-                <QuarterModel timeType="start" :currentTime="startTime" :compare="endTime" v-on:quarter="getStartTime"></QuarterModel>
-              </div>
-            </Col>
-            <Col span="2">
-              -
-            </Col>
-            <Col span="11">
-              <div class="quarterBox" @mouseout="endMouseout" @mouseover="endMouseover">
-                <input class="quarterSelect" placeholder="请选择季度" v-model="endTime" type="text" readonly @click.stop="changeEndBlock">
-                <Icon size="16" v-if="hasEndTime" type="ios-calendar-outline" class="monthIcon" />
-                <Icon size="16" v-if="!hasEndTime" type="ios-close-circle" class="cancelIcon" @click.stop="clearEndQuarter" />
-              </div>
-              <div class="changeQuarterModel" v-if="ifChangeEnd">
-                <QuarterModel timeType="end" :currentTime="endTime" :compare="startTime" v-on:quarter="getEndTime"></QuarterModel>
-              </div>
-            </Col>
-          </FormItem>
-        </Col>
-      </Row>
-
-    </Form>
-    <HoverDropdown style="margin-right: 10px"></HoverDropdown>
-    <HoverDropdown style="margin-right: 10px"></HoverDropdown>
-    <HoverDropdown style="margin-right: 10px"></HoverDropdown>
-    <HoverDropdown style="margin-right: 10px"></HoverDropdown>
-    <HoverDropdown></HoverDropdown>
+    <QuarterModel
+      style="width: 300px;display: inline-block;"
+      v-model="startTime"
+      type="start"
+      :compare="endTime"
+      @change="startTimeChange"
+    ></QuarterModel>
+    <QuarterModel
+      style="width: 300px;display: inline-block;"
+      v-model="endTime"
+      type="end"
+      :compare="startTime"
+      @change="startTimeChange"
+    ></QuarterModel>
   </div>
 </template>
 
@@ -61,12 +38,8 @@
       name: "Home",
       data(){
         return {
-          hasStartTime:true,
-          hasEndTime:true,
           startTime:'',
           endTime:'',
-          ifChangeStart:false,
-          ifChangeEnd:false,
           transmitValue:'',
           util:new CedorUtils(),
         }
@@ -83,53 +56,6 @@
         this.transmitValue = this.getParams
       },
       methods:{
-        // ...mapGetters(['getParams']),//注册getParams方法
-        getStartTime(time){
-          this.startTime = time;
-          this.ifChangeStart = false;
-        },
-        startMouseover(){
-          if(this.startTime){
-            this.hasStartTime = false;
-          }else{
-            this.hasStartTime = true;
-          }
-        },
-        startMouseout(){
-          this.hasStartTime = true;
-        },
-        clearStartQuarter(){
-          this.startTime = '';
-        },
-        changeStartBlock(){
-          this.ifChangeStart = true;
-          this.ifChangeEnd = false;
-        },
-
-
-
-        getEndTime(time){
-          this.endTime = time;
-          this.ifChangeEnd = false;
-        },
-        endMouseover(){
-          if(this.endTime){
-            this.hasEndTime = false;
-          }else{
-            this.hasEndTime = true;
-          }
-        },
-        endMouseout(){
-          this.hasEndTime = true;
-        },
-        clearEndQuarter(){
-          this.endTime = '';
-        },
-        changeEndBlock(){
-          this.ifChangeEnd = true;
-          this.ifChangeStart = false;
-        },
-
         useTransmit(){
           // console.log(this.transmitValue.value);//使用传递的值
           // let params = {
@@ -172,16 +98,15 @@
           // this.eventBus.$emit('close','home')
           this.$Message.success('成功提示')
 
-        }
+        },
+        startTimeChange(value){
+          console.log(value);
+        },
 
 
       },
       mounted(){
         // this.transmitValue = JSON.parse(JSON.stringify(this.getParams()))//将getParams传递的值深拷贝赋值给当前页面的变量
-        // document.onclick = ()=>{
-        //   this.ifChangeStart = false;
-        //   this.ifChangeEnd = false;
-        // }
 
       },
       components:{

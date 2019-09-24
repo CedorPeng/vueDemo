@@ -215,7 +215,29 @@ CedorUtils.prototype = {
     // }
     // return newValue
     return JSON.parse(JSON.stringify(oldValue))
-  }
+  },
+  /*
+  * @树结构中找到自身并设置父节点属性
+  * */
+  // treeFindMe:function(id,json){
+  //   let parentNode = null
+  //   for(let i = 0 ; i < json.length ; i ++){
+  //     if(this.me) break
+  //     let obj = json[i]
+  //     parentNode = obj
+  //     if(obj.id === id && !this.find){
+  //       this.me = obj
+  //       this.find = true
+  //       break
+  //     }
+  //     if (obj.childList && !this.find){
+  //       this.treeFindMe(id,obj.childList)
+  //     }
+  //   }
+  //   if(this.me !== ''){
+  //     parentNode.show = true
+  //   }
+  // },
 
 
 

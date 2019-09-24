@@ -3,20 +3,20 @@
     <router-link to="/home">Home</router-link>
     <router-link to="/news">News</router-link>
     <router-link to="/draggable">draggable</router-link>
-    <br>
-    <Button type="default" @click="transmit" >导出sheet</Button>
-    <Button type="default" @click="close" >跳转</Button>
-    <Button type="default" @click="save" >转PDF并导出</Button>
-    <div class="model-edit__title" >
-      <span>能变大吗?</span>
-      <span class="model-edit__title--disabled">过时</span>
-    </div>
+<!--    <br>-->
+<!--    <Button type="default" @click="transmit" >导出sheet</Button>-->
+<!--    <Button type="default" @click="close" >跳转</Button>-->
+<!--    <Button type="default" @click="save" >转PDF并导出</Button>-->
+<!--    <div class="model-edit__title" >-->
+<!--      <span>能变大吗?</span>-->
+<!--      <span class="model-edit__title&#45;&#45;disabled">过时</span>-->
+<!--    </div>-->
     <div class="content" style="width: 1000px;margin:0 auto;">
       <router-view/>
     </div>
-    <div v-show="false" id="pdfDom" style="padding-top: 55px;background-color:#fff;">
+<!--    <div v-show="false" id="pdfDom" style="padding-top: 55px;background-color:#fff;">-->
 
-    </div>
+<!--    </div>-->
   </div>
 </template>
 
