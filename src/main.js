@@ -5,6 +5,7 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import App from './App'
 import router from './router'
+import CedorFilters from './filters'
 import store from './store'
 import './assets/style/base.less'
 import QuarterModel from './childComponents/QuarterModel'
@@ -13,6 +14,7 @@ import htmlToPdf from './util/HtmlToPDF'
 Vue.use(htmlToPdf)
 
 Vue.use(iView)
+Vue.use(CedorFilters)
 Vue.component('QuarterModel',QuarterModel)
 Vue.prototype.eventBus = new Vue()
 Vue.prototype.CedorUtils = CedorUtils

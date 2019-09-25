@@ -40,5 +40,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 8.export default 和 export 的使用环境
 9.将自己的组件通过 Vue.component(组件名,导入的文件) 方法设置为全局组件
 10.将自己的工具类挂在全局this下
+11.设置全局过滤器
 */
 

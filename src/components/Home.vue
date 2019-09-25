@@ -1,6 +1,7 @@
 <template>
   <div>
     <Button type="default" @click="useTransmit">使用传递的值</Button>
+    <div>{{num | setThousand(3) }}</div>
     <div>
       <QuarterModel
         style="width: 300px;display: inline-block;"
@@ -42,6 +43,7 @@
           startTime:'',
           endTime:'',
           transmitValue:'',
+          num:123456,
         }
       },
       computed:{

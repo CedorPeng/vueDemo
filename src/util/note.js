@@ -76,3 +76,32 @@
             用vue中声明的值接收之后在使用  this.transmitValue = this.getParams
 
  * */
+
+/*
+* @使用v-model实现组件之间的双向数据绑定
+* */
+/*
+  1.父组件中使用v-model绑定并传递值
+  2.子组件中使用prop:[
+      {
+        value:{
+          type:[Array,String],
+          default:''
+        }
+      }
+    ]
+    用于构成双向数据流绑定；不用暴漏到外部接口。默认就是叫 value 规定死，父的绑定值就自动初始化传进来了
+  3.子组件中不能直接操作v-model绑定的数值,
+    需要将操作之后的值通过 this.$emit('change',改变之后的值) 将值通过change方法告知父组件并改变了双向绑定的值
+ */
+
+/*
+* @export default 和 export
+*  export default 只导出一个的时候 在import的时候可以 使用别的名称接收
+*  export 必须使用所命名的名称去接收
+* */
+
+/*
+* @设置全局过滤器
+* 使用的过滤器第一个参数默认会将被处理的值传进过滤器,所传进的参数默认从第二位开始
+* */
