@@ -10,10 +10,10 @@
       <div class="yearBox">{{year}}</div>
       <Icon class="myArrowLeft" type="ios-arrow-back" size="22" @click.stop="prevYear" />
       <Icon class="myArrowRight" type="ios-arrow-forward" size="22" @click.stop="nextYear" />
-      <button type="button" class="quarterBtn" :class="addClass(1)" @click.stop="changeQuarter('-Q1')" :disabled="oneQuarter">一季度</button>
-      <button type="button" class="quarterBtn" :class="addClass(2)" @click.stop="changeQuarter('-Q2')" :disabled="twoQuarter">二季度</button>
-      <button type="button" class="quarterBtn" :class="addClass(3)" @click.stop="changeQuarter('-Q3')" :disabled="threeQuarter">三季度</button>
-      <button type="button" class="quarterBtn" :class="addClass(4)" @click.stop="changeQuarter('-Q4')" :disabled="fourQuarter">四季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(1)" @click.stop="changeQuarter('-Q1')" :disabled="!oneQuarter">一季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(2)" @click.stop="changeQuarter('-Q2')" :disabled="!twoQuarter">二季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(3)" @click.stop="changeQuarter('-Q3')" :disabled="!threeQuarter">三季度</button>
+      <button type="button" class="quarterBtn" :class="addClass(4)" @click.stop="changeQuarter('-Q4')" :disabled="!fourQuarter">四季度</button>
     </div>
   </div>
 </template>
@@ -90,10 +90,10 @@
         nowTimeTransition(quarter){
           let splitArr = quarter.split('-Q')
           let monthObj = {
-            "1": '-03' ,
-            "2": '-06' ,
-            "3": '-09' ,
-            "4": '-12' ,
+            "1": '-01-01' ,
+            "2": '-04-01' ,
+            "3": '-07-01' ,
+            "4": '-10-01' ,
           }
           return new Date(splitArr[0] + monthObj[splitArr[1]]).getTime()
         },
@@ -127,21 +127,21 @@
         * @当前选择器的时间和需要做对比的值来确定是否disabled
         * */
         compareTime(){
-          let oneTime = this.quarterTransition(this.year + '-03');
-          let twoTime = this.quarterTransition(this.year + '-06');
-          let threeTime = this.quarterTransition(this.year + '-09');
-          let fourTime = this.quarterTransition(this.year + '-12');
+          let oneTime = this.quarterTransition(this.year + '-01-01');
+          let twoTime = this.quarterTransition(this.year + '-04-01');
+          let threeTime = this.quarterTransition(this.year + '-07-01');
+          let fourTime = this.quarterTransition(this.year + '-10-01');
           let timeNow = this.compare && this.nowTimeTransition(this.compare) || new Date().getTime();
           if(this.compare && this.type === 'end'){
-            this.oneQuarter = oneTime < timeNow;
-            this.twoQuarter = twoTime < timeNow;
-            this.threeQuarter = threeTime < timeNow;
-            this.fourQuarter = fourTime < timeNow;
+            this.oneQuarter = oneTime >= timeNow
+            this.twoQuarter = twoTime >= timeNow
+            this.threeQuarter = threeTime >= timeNow
+            this.fourQuarter = fourTime >= timeNow
           } else {
-            this.oneQuarter = oneTime > timeNow;
-            this.twoQuarter = twoTime > timeNow;
-            this.threeQuarter = threeTime > timeNow;
-            this.fourQuarter = fourTime > timeNow;
+            this.oneQuarter = oneTime <= timeNow;
+            this.twoQuarter = twoTime <= timeNow;
+            this.threeQuarter = threeTime <= timeNow;
+            this.fourQuarter = fourTime <= timeNow;
           }
         },
         /**
