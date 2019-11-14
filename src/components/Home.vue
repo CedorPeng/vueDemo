@@ -15,7 +15,6 @@
         v-model="endTime"
         type="end"
         :compare="startTime"
-        @change="startTimeChange"
       ></QuarterModel>
     </div>
   </div>
@@ -44,6 +43,7 @@
           endTime:'',
           transmitValue:'',
           num:123456,
+          currentMsg:''
         }
       },
       computed:{
@@ -103,7 +103,9 @@
 
         },
         startTimeChange(value){
-          console.log(value);
+            this.currentMsg = JSON.parse(JSON.stringify(value))
+            this.startTime = ''
+            console.log(this.currentMsg);
         },
 
 
