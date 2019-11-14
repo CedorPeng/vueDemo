@@ -11,20 +11,21 @@ import './assets/style/base.less'
 import QuarterModel from './childComponents/QuarterModel'
 import CedorUtils from './util/base'
 import htmlToPdf from './util/HtmlToPDF'
+
 Vue.use(htmlToPdf)
 
 Vue.use(iView)
 Vue.use(CedorFilters)
-Vue.component('QuarterModel',QuarterModel)
+Vue.component('QuarterModel', QuarterModel)
 Vue.prototype.eventBus = new Vue()
 Vue.prototype.CedorUtils = CedorUtils
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    store,
+    components: {App},
+    template: '<App/>'
 })

@@ -4,46 +4,42 @@
 </template>
 <script>
 
-  export default {
-    name:'com-table',
-    data() {
-        return {
-            
-        }
-    },
-    props: {
-        size: {
-            type: String,
-            default: 'default',
-            validator: function(val) {
-                return !val || ['large','small','default'].includes(val)
+    export default {
+        name: 'com-table',
+        data() {
+            return {}
+        },
+        props: {
+            size: {
+                type: String,
+                default: 'default',
+                validator: function (val) {
+                    return !val || ['large', 'small', 'default'].includes(val)
+                }
+            },
+            stripe: {
+                type: Boolean,
+                default: false
+            },
+            border: {
+                type: Boolean,
+                default: false
+            },
+            columns: {
+                type: Array,
+                default: []
+            },
+            data: {
+                type: Array,
+                default: []
             }
         },
-        stripe: {
-            type: Boolean,
-            default: false
-        },
-        border: {
-            type: Boolean,
-            default: false
-        },
-        columns: {
-            type: Array,
-            default: []
-        },
-        data: {
-            type: Array,
-            default: []
+        methods: {},
+        created() {
+
         }
-    },
-    methods: {
-        
-    },
-    created() {
-       
     }
-}
 </script>
-<style  scoped lang='less'>
- 
+<style scoped lang='less'>
+
 </style>

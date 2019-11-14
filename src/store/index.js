@@ -12,12 +12,12 @@ import changeValue from './module/changeValue'
 
 
 export default new Vuex.Store({
-  modules:{
-    changeValue
-  },
-  plugins:[createPersistence({
-    storage:window.sessionStorage
-  })]
+    modules: {
+        changeValue
+    },
+    plugins: [createPersistence({
+        storage: window.sessionStorage
+    })]
 })
 
 
