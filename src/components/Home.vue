@@ -43,7 +43,6 @@
           endTime:'',
           transmitValue:'',
           num:123456,
-          currentMsg:''
         }
       },
       computed:{
@@ -103,9 +102,6 @@
 
         },
         startTimeChange(value){
-            this.currentMsg = JSON.parse(JSON.stringify(value))
-            this.startTime = ''
-            console.log(this.currentMsg);
         },
 
 
