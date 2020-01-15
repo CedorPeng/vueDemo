@@ -3,6 +3,7 @@
         <router-link to="/home">Home</router-link>
         <router-link to="/news">News</router-link>
         <router-link to="/draggable">draggable</router-link>
+        <router-link to="/D3">D3</router-link>
         <!--    <br>-->
         <!--    <Button type="default" @click="transmit" >导出sheet</Button>-->
         <!--    <Button type="default" @click="close" >跳转</Button>-->

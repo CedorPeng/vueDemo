@@ -5,6 +5,7 @@ import Home from '../components/Home'
 import News from '../components/News'
 import draggable from '../components/Draggable'
 import inputValidate from '../components/inputValidate'
+import D3 from '../components/D3'
 
 Vue.use(Router)
 const router = new Router({
@@ -34,6 +35,11 @@ const router = new Router({
             path: '/inputValidate',
             name: 'inputValidate',
             component: inputValidate
+        },
+        {
+            path: '/D3',
+            name: 'D3',
+            component: D3
         }
     ]
 })
