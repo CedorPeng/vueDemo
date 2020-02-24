@@ -21,7 +21,7 @@ export const getYAxis = (chartData) => {
 export const setConcat = (object) => {
     let newArray = []
     for (let key in object){
-        newArray = [...newArray,...object[key]]
+        newArray.push(...object[key])
     }
     return newArray
 }

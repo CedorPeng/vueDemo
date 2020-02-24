@@ -5,7 +5,8 @@ import Home from '../components/Home'
 import News from '../components/News'
 import draggable from '../components/Draggable'
 import inputValidate from '../components/inputValidate'
-import D3 from '../components/D3'
+import D3Bar from '../components/D3Bar'
+import D3Line from '../childComponents/D3Line'
 
 Vue.use(Router)
 const router = new Router({
@@ -37,10 +38,15 @@ const router = new Router({
             component: inputValidate
         },
         {
-            path: '/D3',
-            name: 'D3',
-            component: D3
-        }
+            path: '/D3Bar',
+            name: 'D3Bar',
+            component: D3Bar
+        },
+        // {
+        //     path: '/D3Line',
+        //     name: 'D3Line',
+        //     component: D3Line
+        // }
     ]
 })
 

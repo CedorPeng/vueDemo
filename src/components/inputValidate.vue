@@ -2,19 +2,16 @@
     <div class="tpl">
         <Button type="default" @click="isTrue=true">编辑</Button>
         <Modal
-                v-model="isTrue"
-                title="个人信息"
-                width="500px"
-                @on-cancel="cancelSubmit"
-        >
+            v-model="isTrue"
+            title="个人信息"
+            width="500px"
+            @on-cancel="cancelSubmit">
             <div>
-
                 <Form
-                        label-position="top"
-                        :rules="myMessageValidate"
-                        ref="myMessage"
-                        :model="myMessage"
-                >
+                    label-position="top"
+                    :rules="myMessageValidate"
+                    ref="myMessage"
+                    :model="myMessage">
                     <Row :gutter="24">
                         <Col>
                             <FormItem label="姓名" prop="name">
@@ -30,10 +27,17 @@
             </div>
 
         </Modal>
+        <div class="chartBox" style="width: 1000px;">
+            <D3Line
+                :data="chart.chartData"
+                :settings="chart.chartSettings"
+            ></D3Line>
+        </div>
     </div>
 </template>
 
 <script>
+    import D3Line from '../childComponents/D3Line'
     export default {
         name: "inputValidate",
         data() {
@@ -54,6 +58,25 @@
                         required: true,
                         trigger: 'blur'//select需要使用change事件触发
                     }]
+                },
+                chart:{
+                    chartData:{
+                        columns:['name','label','money','visit'],
+                        rows:[
+                            {name: 'Mon', label: 15,money:1234,visit:135},
+                            {name: 'Tue', label: 52,money:2234,visit:235},
+                            {name: 'Wed', label: 200,money:3234,visit:335},
+                            {name: 'Thu', label: 235,money:4234,visit:435},
+                            {name: 'Fri', label: 390,money:5234,visit:535},
+                            {name: 'Sat', label: 330,money:6234,visit:635},
+                            {name: 'Sun', label: 221,money:7234,visit:735}
+                        ]
+                    },
+                    chartSettings:{
+                        lineStyle : '4,2',//虚线属性'线的长度,留白的长度'
+
+                    }
+
                 }
             }
         },
@@ -70,6 +93,12 @@
                 this.$refs.myMessage.resetFields()
 
             }
+        },
+        components:{
+            D3Line
+        },
+        mounted() {
+            console.log(this.$route.query.name);
         }
     }
 </script>

@@ -3,7 +3,9 @@
         <router-link to="/home">Home</router-link>
         <router-link to="/news">News</router-link>
         <router-link to="/draggable">draggable</router-link>
-        <router-link to="/D3">D3</router-link>
+        <router-link to="/D3Bar">D3</router-link>
+        <router-link to="/inputValidate">inputValidate</router-link>
+<!--        <router-link to="/D3Line">D3Line</router-link>-->
         <!--    <br>-->
         <!--    <Button type="default" @click="transmit" >导出sheet</Button>-->
         <!--    <Button type="default" @click="close" >跳转</Button>-->
@@ -73,6 +75,16 @@
                 // this.$router.push({name:'news',params:{id:1}})
                 this.$router.push({path: '/news', query: {id: 1}})
             },
+            //在新窗口打開頁面
+            windowOpen(){
+                let routeData = this.$router.resolve({
+                    path: './inputValidate',//跳轉的鏈接
+                    query: {
+                        name: 'chart',
+                    },//需要传递的参数
+                });
+                window.open(routeData.href, '_blank');
+            }
         }
     }
 </script>

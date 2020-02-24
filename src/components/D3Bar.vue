@@ -10,7 +10,7 @@
     import * as d3 from 'd3'
     import * as D3Util from '../util/D3Util'
     export default {
-        name: "D3",
+        name: "D3Bar",
         data(){
             return {
                 margin : {
@@ -284,6 +284,9 @@
                     } else {
                         hideShadowAndTooltip();
                     }
+                })
+                svg.on('mouseout',()=>{
+                    hideShadowAndTooltip();
                 })
                 let renderShadowAndTooltip = (x, y, bodyX) => {
                     // 通过当前鼠标所在坐标系中的X轴坐标/每个维度的宽度,拿到当前数据的索引值

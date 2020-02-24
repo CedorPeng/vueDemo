@@ -41,5 +41,24 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 9.将自己的组件通过 Vue.component(组件名,导入的文件) 方法设置为全局组件
 10.将自己的工具类挂在全局this下
 11.设置全局过滤器
+12.初步封装D3柱图     
+    a.showline(暂时拿到数据,没渲染) 
+    b.双Y轴 
+    c.堆叠 
+    d.柱图增加tooltips 
+    e.柱图增加多柱蒙层(可优化为根据参数取消和显示)    
+    f.百分比堆叠图
+    todo:
+        1).重新整理需要被渲染的数据(setSeries)
+        2).加入折线部分
+        3).加入点击lenged筛选数据,重绘chart
+13.初步封装折线图
+    a.将数据处理setSeries
+    b.处理X轴,以及Y轴数据所需要的显示的数据范围
+    c.tooltips
+    d.点击lenged事件
+    e.设置lineStyle
+    todo:将line组件设置为全局组件,并尝试进一步优化lenged图标的位置
+14.在新窗口通过router打开页面
 */
 
