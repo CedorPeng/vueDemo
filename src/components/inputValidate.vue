@@ -28,16 +28,21 @@
 
         </Modal>
         <div class="chartBox" style="width: 1000px;">
-            <D3Line
+<!--            <D3Line-->
+<!--                :data="chart.chartData"-->
+<!--                :settings="chart.chartSettings"-->
+<!--            ></D3Line>-->
+            <D3Bar
                 :data="chart.chartData"
                 :settings="chart.chartSettings"
-            ></D3Line>
+            ></D3Bar>
         </div>
     </div>
 </template>
 
 <script>
     import D3Line from '../childComponents/D3Line'
+    import D3Bar from '../childComponents/D3Bar'
     export default {
         name: "inputValidate",
         data() {
@@ -60,21 +65,61 @@
                     }]
                 },
                 chart:{
-                    chartData:{
-                        columns:['name','label','money','visit'],
+                    // chartData:{
+                    //     columns:['name','label','money','visit'],
+                    //     rows:[
+                    //         {name: 'Mon', label: 15,money:1234,visit:135},
+                    //         {name: 'Tue', label: 52,money:5234,visit:235},
+                    //         {name: 'Wed', label: 200,money:3234,visit:735},
+                    //         {name: 'Thu', label: 235,money:4234,visit:435},
+                    //         {name: 'Fri', label: 390,money:2234,visit:635},
+                    //         {name: 'Sat', label: 330,money:7234,visit:535},
+                    //         {name: 'Sun', label: 221,money:6234,visit:335}
+                    //     ]
+                    // },
+                    // chartSettings:{
+                    //     lineStyle : '4,2',//虚线属性'线的长度,留白的长度'
+                    //     axisSite : { right : ['money','visit'] },
+                    //     dataOrder : { label : 'money', order : 'asc' },
+                    //     stack:{noMoney:['label','visit']}
+                    // }
+                    chartData : {
+                        columns:['name','last','year1','year2','year3','year4'],
                         rows:[
-                            {name: 'Mon', label: 15,money:1234,visit:135},
-                            {name: 'Tue', label: 52,money:2234,visit:235},
-                            {name: 'Wed', label: 200,money:3234,visit:335},
-                            {name: 'Thu', label: 235,money:4234,visit:435},
-                            {name: 'Fri', label: 390,money:5234,visit:535},
-                            {name: 'Sat', label: 330,money:6234,visit:635},
-                            {name: 'Sun', label: 221,money:7234,visit:735}
+                            {
+                                name : 'pengxc2',
+                                last : 10000 ,
+                                year1 : 16000,
+                                year2: 8000,
+                                year3 : 5000,
+                                year4 : 2000,
+                                year5 : 1000,
+                            },
+                            {
+                                name : 'niuxf2',
+                                last : 12000 ,
+                                year1 : 14000,
+                                year2: 4000,
+                                year3 : 13000,
+                                year4 : 2000,
+                                year5 : 11000,
+                            },
+                            {
+                                name : 'yangwei',
+                                last : 11000 ,
+                                year1 : 13000,
+                                year2: 13000,
+                                year3 : 3000,
+                                year4 : 12000,
+                                year5 : 1000,
+                            },
                         ]
+
                     },
                     chartSettings:{
-                        lineStyle : '4,2',//虚线属性'线的长度,留白的长度'
-
+                        // axisSite:{right:['year1','year5']},
+                        // dataOrder : { label: 'last', order: 'asc' },
+                        stack : { money:['last','year2'] , year:['year3','year4'] }
                     }
 
                 }
@@ -95,10 +140,11 @@
             }
         },
         components:{
-            D3Line
+            D3Line,
+            D3Bar
         },
         mounted() {
-            console.log(this.$route.query.name);
+            // console.log(this.$route.query.name);
         }
     }
 </script>

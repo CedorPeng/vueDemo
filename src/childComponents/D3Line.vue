@@ -151,6 +151,31 @@
                 this.renderXAxis();
                 this.renderYAxis();
             },
+            renderXAxis() {
+                let xAxis = d3.axisBottom().scale(this.scaleX).ticks(this.dataX.length);
+                this.axes.append('g')
+                    .attr('class', 'x axis')
+                    .attr('transform', `translate(${this.xStart}, ${this.yStart})`)
+                    .call(xAxis)
+                d3.selectAll('g.x .tick text')
+                    .data(this.dataX)
+                    .enter()
+            },
+            renderYAxis() {
+                let yAxis = d3.axisLeft().scale(this.scaleY).ticks(this.ticks);
+                this.axes.append('g')
+                    .attr('class', 'y axis')
+                    .attr('transform', `translate(${this.xStart}, ${this.yEnd})`)
+                    .call(yAxis)
+
+                d3.selectAll('.y .tick')
+                    .append('line')
+                    .attr('class', 'grid-line')
+                    .attr('x1', 0)
+                    .attr('y1', 0)
+                    .attr('x2', this.canvasWidth)
+                    .attr('y2', 0)
+            },
             renderBody() {
                 if(!this.body) {
                     this.body = this.svg.append('g')
@@ -334,31 +359,6 @@
                 d3.selectAll('circle.dot').transition().duration(50).ease(d3.easeCubicOut).attr('r', 2);
                 this.tooltip.transition().duration(10).style('opacity', 0).on('end', function () {d3.select(this).style('display', 'none')});
             },
-            renderXAxis() {
-                let xAxis = d3.axisBottom().scale(this.scaleX).ticks(this.dataX.length);
-                this.axes.append('g')
-                    .attr('class', 'x axis')
-                    .attr('transform', `translate(${this.xStart}, ${this.yStart})`)
-                    .call(xAxis)
-                d3.selectAll('g.x .tick text')
-                    .data(this.dataX)
-                    .enter()
-            },
-            renderYAxis() {
-                let yAxis = d3.axisLeft().scale(this.scaleY).ticks(this.ticks);
-                this.axes.append('g')
-                    .attr('class', 'y axis')
-                    .attr('transform', `translate(${this.xStart}, ${this.yEnd})`)
-                    .call(yAxis)
-
-                d3.selectAll('.y .tick')
-                    .append('line')
-                    .attr('class', 'grid-line')
-                    .attr('x1', 0)
-                    .attr('y1', 0)
-                    .attr('x2', this.canvasWidth)
-                    .attr('y2', 0)
-            },
             selectMaxYNumber(arr) {
                 let temp = [];
                 arr.forEach(item => temp.push(...item.data));
@@ -393,7 +393,7 @@
         props:{
             height:{
                 // type:String,
-                default:600,
+                default:400,
             },
             data:{
                 // default: {}

@@ -56,7 +56,7 @@
                 chartSettings:{
                     // axisSite:{right:['year1','year5']},
                     // dataOrder : { label: 'last', order: 'asc' },
-                    stack : { money:['last','year2'] , year:['year3','year4'] }
+                    stack : { money:['last','year2'] , year:['year4','year3'] }
                 }
             }
         },
@@ -111,12 +111,9 @@
                 let yAxisStack = stack ? D3Util.getStack(this.chartSettings ,this.chartData) : {}
                 let stackData = {} //堆叠部分需要叠加计算Y轴坐标
                 for (let stackKey in yAxisStack){
-                    stackData[stackKey] = []
-                    yAxisStack[stackKey].forEach((item,index) => {
-                        stackData[stackKey].push(0)
-                    })
+                    let haha = JSON.parse(JSON.stringify(yAxisStack[stackKey]))
+                    stackData[stackKey] = haha.map(()=> 0)
                 }
-
                 // if(axisSite) {
                 //     let allYAxis = D3Util.setTwoYAxis(this.CedorUtils.deepCopy(yAxis),axisSite.right)
                 //     leftYAxis = setScaleY(D3Util.setConcat({...yAxisStack,...allYAxis.leftYAxis}))
@@ -308,7 +305,7 @@
                     })
                     tooltips.html(html.join(' '))
                         .transition()
-                        .duration(50)
+                        .duration(100)
                         .ease(d3.easeLinear)
                         .style('display', 'inline-block')
                         .style('opacity', 0.6)
@@ -337,6 +334,7 @@
                         stackCount[item] = step
                     }
                 })
+                console.log(stackCount);
                 return stackCount
             },
             createPercentStack(){

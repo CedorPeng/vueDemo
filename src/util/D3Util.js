@@ -48,12 +48,10 @@ export const getStack = (chartSettings,chartData) => {
     return stack
 }
 export const getStackName = (columnsKey,stack) => {
-    let stackName = ''
     for(let key in stack){
         if(stack[key].includes(columnsKey)){
-            stackName = key
+            return key
             break
         }
     }
-    return stackName
 }
