@@ -1,8 +1,6 @@
 <template>
     <div>
-        <div class="D3" style="width: 100%">
-
-        </div>
+        <div class="D3" style="width: 100%"></div>
     </div>
 </template>
 
@@ -10,7 +8,7 @@
     import * as d3 from 'd3'
     import * as D3Util from '../util/D3Util'
     export default {
-        name: "D3Line",
+        name: "D3Bar",
         data(){
             return {
                 margin : {
@@ -19,14 +17,14 @@
                     bottom: 40,
                     left: 60,
                 },
-                defaultColor : ['#38CCCB', '#0074D9', '#2FCC40', '#FEDC00', '#FF4036', 'lightgrey'],
+                defaultColor : ['#38CCCB', '#0074D9', '#2FCC40', '#FEDC00', '#FF4036', 'pink'],
                 width : 0,
                 canvasWidth : 0, //画布去掉偏移量之后的宽度
                 canvasHeight : 0,//画布去掉偏移量之后的高度
                 dataY : [],//传过来的数据不变,不涉及点击改变
                 axisSite:null,//设置数据所对应的Y轴
-                labelMap:null,//设置指标的别名,同时作用于legend和tooltip显示的指标
-                legendName:null,//设置legend的别名,会根据labelMap的别名进行设置,labelMap先生效
+                labelMap:{},//设置指标的别名,同时作用于legend和tooltip显示的指标
+                legendName:{},//设置legend的别名,会根据labelMap的别名进行设置,labelMap先生效
                 showLine:null,
                 dataOrder:null,
                 stack:null,
@@ -68,9 +66,9 @@
             this.dataOrder = this.settings.dataOrder || null
             this.stack = this.settings.stack || null
             this.axisSite = this.settings.axisSite || null
-            this.labelMap = this.settings.labelMap || null
-            this.legendName = this.settings.legendName || null
-            this.showLine = this.settings.showLine || null
+            this.labelMap = this.settings.labelMap || {}
+            this.legendName = this.settings.legendName || {}
+            this.showLine = this.settings.showLine || []
             this.width = document.getElementsByClassName('D3')[0].offsetWidth
             this.canvasWidth = this.width - this.margin.left - this.margin.right
             this.canvasHeight = this.height - this.margin.top - this.margin.bottom
@@ -80,7 +78,7 @@
             this.yEnd = this.margin.top
             //根据X轴显示内容设置x轴比例尺
             this.scaleX = d3.scalePoint().domain(this.dataX).range([0, this.canvasWidth]).padding(0.5)
-            this.xCount = this.columns.length - (this.showLine ? this.showLine.length : 0)
+            this.xCount = this.columns.length - this.showLine.length
             let everyWidth = (this.scaleX.step() - 20) / this.xCount
             this.barWidth = everyWidth > this.maxSingleWidth ? this.maxSingleWidth : everyWidth;
             //处理排序
@@ -92,7 +90,7 @@
             }
             this.columns.forEach(item => {
                 let data =  this.data.rows.map(rowsItem => rowsItem[item])
-                this.dataY.push({name:item,data})
+                this.dataY.push({name:item,data,type:this.showLine.includes(item)? 'line':'bar'})
             })
             this.setLegend()
             this.setSeries(this.dataY)
@@ -145,9 +143,11 @@
                         if(stackName && this.stackIndex[stackName]){
                             this.stackIndex[item.name] = this.stackIndex[stackName]
                         }else{
-                            this.xCount++
-                            this.stackIndex[stackName] = this.xCount
-                            this.stackIndex[item.name] = this.xCount
+                            if(item.type === 'bar'){
+                                this.xCount++
+                                this.stackIndex[stackName] = this.xCount
+                                this.stackIndex[item.name] = this.xCount
+                            }
                         }
                     })
                     let everyWidth = (this.scaleX.step() - 20) / this.xCount
@@ -163,7 +163,7 @@
             },
             render(){
                 if(!this.tooltip) {
-                    this.tooltip = d3.select('.D3')
+                    this.tooltip = d3.select(`.${this.name} .D3`)
                         .append('div')
                         .style('left', '40px')
                         .style('top', '30px')
@@ -171,12 +171,11 @@
                         .html('');
                 }
                 if(!this.svg) {
-                    this.svg = d3.select('.D3')
+                    this.svg = d3.select(`.${this.name} .D3`)
                         .append('svg')
                         .attr('width', this.width)
                         .attr('height', this.height)
                         .style('background', '#f3f3f3')
-                    this.initGraph();
                 }
                 this.renderAxes();
                 this.renderBody()
@@ -200,34 +199,6 @@
                 let maxRight = this.selectMaxYNumber(rightData)
                 this.scaleLeftY = this.setScaleY([0, maxLeft])
                 this.scaleRightY = this.setScaleY([0, maxRight])
-            },
-            initGraph() {
-                // let graph = this.svg.append('defs')
-                //     .append('g')
-                //     .attr('id', 'graph')
-                // graph.append('rect')
-                //     .attr('x', 0)
-                //     .attr('y', 0)
-                //     .attr('width', 25)
-                //     .attr('height', 15)
-                    // .attr('fill', this.defaultColor[index])
-                    // .attr('cursor','pointer')
-
-                // graph.append('line')
-                //     .attr('x1', 0)
-                //     .attr('y1', 0)
-                //     .attr('x2', 30)
-                //     .attr('y2', 0)
-                //     .style('stroke', 'inherit')
-                //
-                // graph.append('circle')
-                //     .attr('cx', 15)
-                //     .attr('cy', 0)
-                //     .attr('r', 6.5)
-                //     .attr('stroke', 'inherit')
-                //     .attr('fill', '#fff')
-
-                this.graphGroup = this.svg.append('g').attr('class', 'graphGroup')
             },
             //设置坐标轴
             renderAxes() {
@@ -296,35 +267,81 @@
                     .attr('fill-opacity', 0)
             },
             renderCanvas(){
-                this.series.forEach((item,index)=>{
-                    let yAxis = false
-                    if(this.axisSite){
-                        yAxis = this.axisSite.right.includes(item.name)
+                let line = []
+                this.series.forEach(item=>{
+                    if(item.type === 'bar'){
+                        this.renderBar(item)
+                    }else{
+                        line.push(item)
                     }
-                    let stackName = D3Util.getStackName(item.name,this.stack)
-                    if(stackName){
-                        item.data.forEach((stackItem,stackIndex)=>{
-                            this.stackCount[stackName][stackIndex] += stackItem
-                        })
-                    }
-                    let currentData = stackName ? this.stackCount[stackName] : item.data
-                    this.body.append('g').selectAll('rect')
-                        .data(currentData)
+
+                })
+                if(this.showLine.length !== 0){
+                    this.renderLines(line)
+                    this.renderDots(line)
+                }
+            },
+            renderBar(item){
+                let yAxis = false
+                if(this.axisSite){
+                    yAxis = this.axisSite.right.includes(item.name)
+                }
+                let stackName = D3Util.getStackName(item.name,this.stack)
+                if(stackName){
+                    item.data.forEach((stackItem,stackIndex)=>{
+                        this.stackCount[stackName][stackIndex] += stackItem
+                    })
+                }
+                let currentData = stackName ? this.stackCount[stackName] : item.data
+                this.body.append('g').selectAll('rect')
+                    .data(currentData)
+                    .enter()
+                    .append('rect')
+                    .attr('x', (d,i) => {
+                        return this.scaleX(this.dataX[i]) + (this.barWidth + 2) * (this.stackIndex[item.name] - 1 - this.xCount / 2) + 1
+                    })
+                    .attr('y', (d,i) => {
+                        return yAxis ? this.scaleRightY(d) : this.scaleLeftY(d)
+                    })
+                    .attr('width', this.barWidth)
+                    .attr('height', (d,i) => {
+                        let heightData = stackName ? item.data[i] : d
+                        let ySite = yAxis ? this.scaleRightY(heightData) : this.scaleLeftY(heightData)
+                        return this.height - this.margin.top - this.margin.bottom - ySite
+                    })
+                    .attr('fill', this.defaultColor[this.legend.data.indexOf(item.name)])
+                    .attr('cursor','pointer')
+            },
+            renderLines(series){
+                let line = d3.line()
+                    .x((d,i) => this.scaleX(this.dataX[i]))
+                    .y(d => {
+                        let yAxisIndex = this.axisSite && this.axisSite.right.includes(item.name) ? this.scaleRightY : this.scaleLeftY
+                        return yAxisIndex(d)
+                    })
+                this.body.selectAll('path.line')
+                    .data(series)
+                    .enter()
+                    .append('path')
+                    .attr('class', (d,i) => 'line _' + i)
+                    .attr('d', d => line(d.data))
+                    .attr('stroke', (d,i) => this.defaultColor[this.legend.data.indexOf(series[i].name)])
+            },
+            renderDots(series) {
+                series.forEach((item,i) => {
+                    this.body
+                        .selectAll('circle._' + i)
+                        .data(item.data)
                         .enter()
-                        .append('rect')
-                        .attr('x', (d,i) => {
-                            return this.scaleX(this.dataX[i]) + (this.barWidth + 2) * (this.stackIndex[item.name] - 1 - this.xCount / 2) + 1
+                        .append('circle')
+                        .attr('class', (v, index) => 'dot _' + i + ' index_' + index)
+                        .attr('cx', (d,i) => this.scaleX(this.dataX[i]))
+                        .attr('cy', d => {
+                            let yAxisIndex = this.axisSite && this.axisSite.right.includes(item.name) ? this.scaleRightY : this.scaleLeftY
+                            return yAxisIndex(d)
                         })
-                        .attr('y', (d,i) => {
-                            return yAxis ? this.scaleRightY(d) : this.scaleLeftY(d)
-                        })
-                        .attr('width', this.barWidth)
-                        .attr('height', (d,i) => {
-                            let heightData = stackName ? item.data[i] : d
-                            let ySite = yAxis ? this.scaleRightY(heightData) : this.scaleLeftY(heightData)
-                            return this.height - this.margin.top - this.margin.bottom - ySite
-                        })
-                        .attr('fill', this.defaultColor[this.legend.data.indexOf(item.name)])
+                        .attr('r', 2)
+                        .attr('stroke', (d,i) => this.defaultColor[this.legend.data.indexOf(item.name)])
                         .attr('cursor','pointer')
                 })
             },
@@ -340,7 +357,9 @@
                     .attr('y', 13)
                     .attr('width', 25)
                     .attr('height', 15)
-                    .attr('fill', (d,i) => this.defaultColor[i])
+                    .attr('fill', (d,i) => {
+                        return this.legend.type[this.legend.data[i]] ? this.defaultColor[i] : 'lightgrey'
+                    })
                     .style('cursor', 'pointer')
 
                 ent.append('text')
@@ -350,9 +369,13 @@
                     .attr('fill', '#444')
                     .style('font-size', '13px')
                     .style('cursor', 'pointer')
-                    .text(d => d)
+                    .text(d => {
+                        return this.labelMap[d] || d
+                    })
                     .on('click', (item,index) => {
-                        let rectDom = this.body.selectAll('g').remove()
+                        this.body.selectAll('g').remove()
+                        this.body.selectAll('path').remove()
+                        this.body.selectAll('circle').remove()
                         this.legend.type[item] = !this.legend.type[item]
                         let newSeries = []
                         this.dataY.forEach(item=>{
@@ -395,7 +418,8 @@
                 let currentData = this.data.rows[cutIndex]
                 let html = [`<span>${this.dataX[cutIndex]}</span><br>`]
                 this.series.forEach((item,index)=>{
-                    html.push(`<span class="circle" style="background: ${this.defaultColor[this.legend.data.indexOf(item.name)]};"></span><span>${item.name}:${currentData[item.name]}</span><br>`)
+                    let name = this.labelMap[item.name] || item.name
+                    html.push(`<span class="circle" style="background: ${this.defaultColor[this.legend.data.indexOf(item.name)]};"></span><span>${this.legendName[name] || name  }:${currentData[item.name]}</span><br>`)
                 })
                 this.tooltip.html(html.join(' '))
                     .transition()
@@ -453,6 +477,9 @@
             },
             settings:{
                 type:Object
+            },
+            name:{
+                type:String
             }
 
         }
@@ -482,6 +509,13 @@
         border-radius:5px;
         color: #ffffff;
         display: none;
+    }
+    .line {
+        fill: none;
+        stroke-width: 2;
+    }
+    .dot {
+        fill: #fff;
     }
     .tooltip .circle{
         display: inline-block;

@@ -60,5 +60,19 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     e.设置lineStyle
     todo:将line组件设置为全局组件,并尝试进一步优化lenged图标的位置
 14.在新窗口通过router打开页面
+15.将柱状图和堆叠图封装成组件
+    a.tooltips显示数据优化
+    b.legend显示
+    c.点击legend重新筛选数据,重绘chart
+    d.legend别名
+    e.legend为被去除的状态颜色切换
+    f.根据legend数量确定位置
+    todo:
+        1)添加折线部分
+16.柱图添加折线
+    a.D3.select()方法获取当前页面(非当前组件)所有名称相同的dom(传入父组件名称解决)
+    b.目前折线部分d3.line()方法只能读数组类型的值-------还需其他方法解决问题
+    todo:
+        1)legend部分显示折线的元素
 */
 

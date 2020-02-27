@@ -29,10 +29,14 @@
         </Modal>
         <div class="chartBox" style="width: 1000px;">
 <!--            <D3Line-->
+<!--                class="line"-->
+<!--                name="line"-->
 <!--                :data="chart.chartData"-->
 <!--                :settings="chart.chartSettings"-->
 <!--            ></D3Line>-->
             <D3Bar
+                class="bar"
+                name="bar"
                 :data="chart.chartData"
                 :settings="chart.chartSettings"
             ></D3Bar>
@@ -84,7 +88,7 @@
                     //     stack:{noMoney:['label','visit']}
                     // }
                     chartData : {
-                        columns:['name','last','year1','year2','year3','year4'],
+                        columns:['name','last','year1','year2','year3','year4','year5'],
                         rows:[
                             {
                                 name : 'pengxc2',
@@ -117,9 +121,16 @@
 
                     },
                     chartSettings:{
-                        // axisSite:{right:['year1','year5']},
+                        // axisSite:{right:['year1']},
                         // dataOrder : { label: 'last', order: 'asc' },
-                        stack : { money:['last','year2'] , year:['year3','year4'] }
+                        stack : { money:['last','year2'] , year:['year3','year4'] },
+                        labelMap:{
+                            last:'去年'
+                        },
+                        legendName:{
+                            '去年':'上一年'
+                        },
+                        showLine:['year1','year5']
                     }
 
                 }

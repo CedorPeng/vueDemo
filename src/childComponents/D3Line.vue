@@ -1,8 +1,5 @@
 <template>
-    <div>
-        <div class="D3" style="width: 100%">
-
-        </div>
+    <div class="D3" style="width: 100%">
     </div>
 </template>
 
@@ -48,7 +45,7 @@
             }
         },
         mounted(){
-            this.width = document.getElementsByClassName('D3')[0].offsetWidth
+            this.width = document.querySelectorAll(`.D3`)[0].offsetWidth
             this.canvasWidth = this.width - this.margin.left - this.margin.right
             this.canvasHeight = this.height - this.margin.top - this.margin.bottom
             this.xStart = this.margin.left
@@ -79,7 +76,7 @@
             * */
             render(){
                 if(!this.tooltip) {
-                    this.tooltip = d3.select('.D3')
+                    this.tooltip = d3.select(`.${this.name}.D3`)
                         .append('div')
                         .style('left', '40px')
                         .style('top', '30px')
@@ -87,7 +84,7 @@
                         .html('');
                 }
                 if(!this.svg) {
-                    this.svg = d3.select('.D3')
+                    this.svg = d3.select(`.${this.name}.D3`)
                         .append('svg')
                         .attr('width', this.width)
                         .attr('height', this.height)
@@ -401,6 +398,9 @@
             },
             settings:{
                 type:Object
+            },
+            name:{
+                type:String
             }
 
         }
