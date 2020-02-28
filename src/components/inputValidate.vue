@@ -34,12 +34,18 @@
 <!--                :data="chart.chartData"-->
 <!--                :settings="chart.chartSettings"-->
 <!--            ></D3Line>-->
-            <D3Bar
+<!--            <D3Bar-->
+<!--                class="bar"-->
+<!--                name="bar"-->
+<!--                :data="chart.chartData"-->
+<!--                :settings="chart.chartSettings"-->
+<!--            ></D3Bar>-->
+            <PercentStackBar
                 class="bar"
                 name="bar"
                 :data="chart.chartData"
                 :settings="chart.chartSettings"
-            ></D3Bar>
+            ></PercentStackBar>
         </div>
     </div>
 </template>
@@ -47,6 +53,7 @@
 <script>
     import D3Line from '../childComponents/D3Line'
     import D3Bar from '../childComponents/D3Bar'
+    import PercentStackBar from '../childComponents/PercentStackBar'
     export default {
         name: "inputValidate",
         data() {
@@ -152,7 +159,8 @@
         },
         components:{
             D3Line,
-            D3Bar
+            D3Bar,
+            PercentStackBar
         },
         mounted() {
             // console.log(this.$route.query.name);

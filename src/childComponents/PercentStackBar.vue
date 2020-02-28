@@ -8,7 +8,7 @@
     import * as d3 from 'd3'
     import * as D3Util from '../util/D3Util'
     export default {
-        name: "D3Bar",
+        name: "PercentStackBar",
         data(){
             return {
                 margin : {
@@ -22,21 +22,15 @@
                 canvasWidth : 0, //画布去掉偏移量之后的宽度
                 canvasHeight : 0,//画布去掉偏移量之后的高度
                 dataY : [],//传过来的数据不变,不涉及点击改变
-                axisSite:null,//设置数据所对应的Y轴
                 labelMap:{},//设置指标的别名,同时作用于legend和tooltip显示的指标
                 legendName:{},//设置legend的别名,会根据labelMap的别名进行设置,labelMap先生效
-                showLine:null,
                 dataOrder:null,
-                stack:null,
-                yAxisStack : {},//堆叠之后会增大Y轴显示范围
-                stackCount : {},//画柱时,需要计算起点,加上堆叠所在维度的其他值
-                stackIndex : {},//数据所对应的柱的位置
-                xCount:0,
-                barWidth:0,
+                barWidth:38,
                 maxSingleWidth:38,
-                lineY : [],//需要显示为折线的数据
                 columns : this.data.columns.slice(1),
                 series : [],
+                stackCount:[],
+                stackStep:[],
                 legend:[],
                 dataX : this.data.rows.map(item => item[this.data.columns[0]]),//X轴的数据
                 color : d3.scaleOrdinal(d3.schemeCategory10),
@@ -44,10 +38,8 @@
                 body : null,
                 shadow:null,
                 scaleX : null,
-                scaleLeftY : null,
-                scaleRightY : null,
+                scaleY : null,
                 tooltip : null,
-                transLine : null,
                 graphGroup : null,
                 axes : null,
                 xStart : 0,
@@ -64,11 +56,8 @@
         mounted(){
             if(this.settings.margin) this.margin = this.settings.margin
             this.dataOrder = this.settings.dataOrder || null
-            this.stack = this.settings.stack || null
-            this.axisSite = this.settings.axisSite || null
             this.labelMap = this.settings.labelMap || {}
             this.legendName = this.settings.legendName || {}
-            this.showLine = this.settings.showLine || []
             this.width = document.getElementsByClassName('D3')[0].offsetWidth
             this.canvasWidth = this.width - this.margin.left - this.margin.right
             this.canvasHeight = this.height - this.margin.top - this.margin.bottom
@@ -78,9 +67,9 @@
             this.yEnd = this.margin.top
             //根据X轴显示内容设置x轴比例尺
             this.scaleX = d3.scalePoint().domain(this.dataX).range([0, this.canvasWidth]).padding(0.5)
-            this.xCount = this.columns.length - this.showLine.length
-            let everyWidth = (this.scaleX.step() - 20) / this.xCount
-            this.barWidth = everyWidth > this.maxSingleWidth ? this.maxSingleWidth : everyWidth;
+            this.scaleY = d3.scaleLinear().domain([0, 1]).range([this.height - this.margin.top - this.margin.bottom, 0])
+            // let everyWidth = (this.scaleX.step() - 20) / this.xCount
+            // this.barWidth = everyWidth > this.maxSingleWidth ? this.maxSingleWidth : everyWidth;
             //处理排序
             if(this.dataOrder){
                 this.data.rows.sort((a,b)=>{
@@ -90,7 +79,7 @@
             }
             this.columns.forEach(item => {
                 let data =  this.data.rows.map(rowsItem => rowsItem[item])
-                this.dataY.push({name:item,data,type:this.showLine.includes(item)? 'line':'bar'})
+                this.dataY.push({name:item,data})
             })
             this.setLegend()
             this.setSeries(this.dataY)
@@ -109,57 +98,22 @@
                     type:legendType
                 }
             },
-            //填充的数据series
+            //填充的数据series(去掉被筛选的数据并重新计算总值以便计算百分比)
             setSeries(data){
                 if(!data) return this.series;
                 this.series = data
-                this.yAxisStack = {}
-                this.stackCount = {}
-                let getMaxArr = []
-                //处理堆叠所涉及的数据
-                if(this.stack){
-                    for(let key in this.stack){
-                        this.yAxisStack[key] = []
-                        this.stackCount[key] = []
-                        this.series.forEach(item=>{
-                            getMaxArr.push(...item.data)
-                            if(this.stack[key].includes(item.name)){
-                                if(this.yAxisStack[key].length === 0){
-                                    this.yAxisStack[key] = JSON.parse(JSON.stringify(item.data))
-                                    this.stackCount[key] = item.data.map(() => 0)
-                                }else{
-                                    item.data.forEach((dataItem,index)=>{
-                                        this.yAxisStack[key][index] += dataItem
-                                    })
-                                }
-                            }
+                this.stackCount = []
+                this.stackStep = []
+                this.series.forEach(item=>{
+                    if(this.stackCount.length === 0){
+                        this.stackCount = JSON.parse(JSON.stringify(item.data))
+                        this.stackStep = item.data.map(a => 0)
+                    }else{
+                        item.data.forEach((dataItem,dataIndex)=>{
+                            this.stackCount[dataIndex] += dataItem
                         })
-                        getMaxArr.push(...this.yAxisStack[key])
                     }
-                    this.xCount = 0
-                    this.stackIndex = {}
-                    this.series.forEach(item=>{
-                        let stackName = D3Util.getStackName(item.name,this.stack)
-                        if(stackName && this.stackIndex[stackName]){
-                            this.stackIndex[item.name] = this.stackIndex[stackName]
-                        }else{
-                            if(item.type === 'bar'){
-                                this.xCount++
-                                this.stackIndex[stackName] = this.xCount
-                                this.stackIndex[item.name] = this.xCount
-                            }
-                        }
-                    })
-                    let everyWidth = (this.scaleX.step() - 20) / this.xCount
-                    this.barWidth = everyWidth > this.maxSingleWidth ? this.maxSingleWidth : everyWidth;
-                }
-                if(this.axisSite){
-                    this.setYAxis()
-                }else{
-                    this.series.forEach(item=>{getMaxArr.push(...item.data)})
-                    let maxY = this.selectMaxYNumber(getMaxArr)
-                    this.scaleLeftY = this.setScaleY([0, maxY])
-                }
+                })
             },
             render(){
                 if(!this.tooltip) {
@@ -179,26 +133,6 @@
                 }
                 this.renderAxes();
                 this.renderBody()
-            },
-            //如果有右Y轴
-            setYAxis(){
-                let leftData=[],rightData=[]
-                this.series.forEach(item=>{
-                    if(this.axisSite.right.includes(item.name)){
-                        rightData.push(...item.data)
-                    }else{
-                        leftData.push(...item.data)
-                    }
-                })
-                if(this.stack){
-                    for(let key in this.yAxisStack){
-                        leftData.push(...this.yAxisStack[key])
-                    }
-                }
-                let maxLeft = this.selectMaxYNumber(leftData)
-                let maxRight = this.selectMaxYNumber(rightData)
-                this.scaleLeftY = this.setScaleY([0, maxLeft])
-                this.scaleRightY = this.setScaleY([0, maxRight])
             },
             //设置坐标轴
             renderAxes() {
@@ -224,18 +158,11 @@
                     .enter()
             },
             renderYAxis() {
-                let yLeftAxis = d3.axisLeft().scale(this.scaleLeftY).ticks(this.ticks);
+                let yLeftAxis = d3.axisLeft(this.scaleY).ticks(this.ticks).tickFormat(d3.format(".0%"));
                 this.axes.append('g')
                     .attr('class', 'y axis')
                     .attr('transform', `translate(${this.xStart}, ${this.yEnd})`)
                     .call(yLeftAxis)
-                if(this.axisSite){
-                    let axisRight = d3.axisRight().scale(this.scaleRightY).ticks(this.ticks);
-                    this.axes.append('g')
-                        .attr('transform', `translate(${this.xEnd}, ${this.yEnd})`)
-                        .call(axisRight)
-                }
-
                 d3.selectAll('.y .tick')
                     .append('line')
                     .attr('class', 'grid-line')
@@ -262,24 +189,34 @@
                     .attr('x', 0)
                     .attr('y', 0)
                     .attr('width', this.scaleX.step())
-                    .attr('height', this.scaleLeftY(0))
+                    .attr('height', this.scaleY(0))
                     .attr('fill', '#000')
                     .attr('fill-opacity', 0)
             },
             renderCanvas(){
-                let line = []
                 this.series.forEach(item=>{
-                    if(item.type === 'bar'){
-                        this.renderBar(item)
-                    }else{
-                        line.push(item)
-                    }
-
+                    item.data.forEach((dataItem,dataIndex)=>{
+                        let percent = Math.floor(dataItem / (this.stackCount[dataIndex]) * 10000) / 10000
+                        this.stackStep[dataIndex] += percent
+                    })
+                    this.svg.append('g').selectAll('rect')
+                        .data(item.data)
+                        .enter()
+                        .append('rect')
+                        .attr('x', (d,i) => {
+                            return this.margin.left + this.scaleX(this.dataX[i]) - this.barWidth / 2
+                        })
+                        .attr('y', (d,i) => {
+                            return this.scaleY(this.stackStep[i]) + this.margin.top
+                        })
+                        .attr('width', this.barWidth)
+                        .attr('height', (d,i) => {
+                            let percent = Math.floor(d / (this.stackCount[i]) * 10000) / 10000
+                            return this.height - this.margin.top - this.margin.bottom - this.scaleY(percent)
+                        })
+                        .attr('fill', this.defaultColor[this.legend.data.indexOf(item.name)])
+                        .attr('cursor','pointer')
                 })
-                if(this.showLine.length !== 0){
-                    this.renderLines(line)
-                    this.renderDots(line)
-                }
             },
             renderBar(item){
                 let yAxis = false
@@ -312,39 +249,6 @@
                     .attr('fill', this.defaultColor[this.legend.data.indexOf(item.name)])
                     .attr('cursor','pointer')
             },
-            renderLines(series){
-                let line = d3.line()
-                    .x((d,i) => this.scaleX(this.dataX[i]))
-                    .y(d => {
-                        let yAxisIndex = this.axisSite && this.axisSite.right.includes(item.name) ? this.scaleRightY : this.scaleLeftY
-                        return yAxisIndex(d)
-                    })
-                this.body.selectAll('path.line')
-                    .data(series)
-                    .enter()
-                    .append('path')
-                    .attr('class', (d,i) => 'line _' + i)
-                    .attr('d', d => line(d.data))
-                    .attr('stroke', (d,i) => this.defaultColor[this.legend.data.indexOf(series[i].name)])
-            },
-            renderDots(series) {
-                series.forEach((item,i) => {
-                    this.body
-                        .selectAll('circle._' + i)
-                        .data(item.data)
-                        .enter()
-                        .append('circle')
-                        .attr('class', (v, index) => 'dot _' + i + ' index_' + index)
-                        .attr('cx', (d,i) => this.scaleX(this.dataX[i]))
-                        .attr('cy', d => {
-                            let yAxisIndex = this.axisSite && this.axisSite.right.includes(item.name) ? this.scaleRightY : this.scaleLeftY
-                            return yAxisIndex(d)
-                        })
-                        .attr('r', 2)
-                        .attr('stroke', (d,i) => this.defaultColor[this.legend.data.indexOf(item.name)])
-                        .attr('cursor','pointer')
-                })
-            },
             renderGraph() {
                 this.graphGroup = this.svg.append('g').attr('class', 'graphGroup')
                 let ele = this.graphGroup.selectAll('g.graph-item').data(this.legend.data);
@@ -374,8 +278,6 @@
                     })
                     .on('click', (item,index) => {
                         this.svg.selectAll('g').remove()
-                        this.svg.selectAll('path').remove()
-                        this.svg.selectAll('circle').remove()
                         this.legend.type[item] = !this.legend.type[item]
                         let newSeries = []
                         this.dataY.forEach(item=>{
@@ -419,7 +321,7 @@
                 let html = [`<span>${this.dataX[cutIndex]}</span><br>`]
                 this.series.forEach((item,index)=>{
                     let name = this.labelMap[item.name] || item.name
-                    html.push(`<span class="circle" style="background: ${this.defaultColor[this.legend.data.indexOf(item.name)]};"></span><span>${this.legendName[name] || name  }:${currentData[item.name]}</span><br>`)
+                    html.push(`<span class="circle" style="background: ${this.defaultColor[this.legend.data.indexOf(item.name)]};"></span><span>${this.legendName[name] || name  }:${currentData[item.name]}(${(Math.floor(currentData[item.name] / (this.stackCount[cutIndex]) * 10000) / 100).toFixed(2)}%)</span><br>`)
                 })
                 this.tooltip.html(html.join(' '))
                     .transition()
@@ -435,8 +337,16 @@
                 this.tooltip.transition().duration(50).style('opacity', 0).on('end', function () {d3.select(this).style('display', 'none')})
             },
             setScaleY(data){
-                return d3.scaleLinear().range([this.canvasHeight, 0]).domain(data)
+                // return d3.scaleLinear().range([this.canvasHeight, 0]).domain(data)
             },
+            // getStackPercent(object){
+            //     for(let key in object){
+            //         object[key].forEach((item,index)=>{
+            //             this.stackCount[index] = this.stackCount[index] ? this.stackCount[index] += item : item
+            //             this.stackStep[index] = 0
+            //         })
+            //     }
+            // },
             selectMaxYNumber(temp) {
                 if(temp.length == 0) return 0;
                 let max = d3.max(temp);
