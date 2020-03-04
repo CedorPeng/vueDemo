@@ -68,8 +68,6 @@
             //根据X轴显示内容设置x轴比例尺
             this.scaleX = d3.scalePoint().domain(this.dataX).range([0, this.canvasWidth]).padding(0.5)
             this.scaleY = d3.scaleLinear().domain([0, 1]).range([this.height - this.margin.top - this.margin.bottom, 0])
-            // let everyWidth = (this.scaleX.step() - 20) / this.xCount
-            // this.barWidth = everyWidth > this.maxSingleWidth ? this.maxSingleWidth : everyWidth;
             //处理排序
             if(this.dataOrder){
                 this.data.rows.sort((a,b)=>{
