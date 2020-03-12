@@ -197,15 +197,15 @@
                         let percent = Math.floor(dataItem / (this.stackCount[dataIndex]) * 10000) / 10000
                         this.stackStep[dataIndex] += percent
                     })
-                    this.svg.append('g').selectAll('rect')
+                    this.body.append('g').selectAll('rect')
                         .data(item.data)
                         .enter()
                         .append('rect')
                         .attr('x', (d,i) => {
-                            return this.margin.left + this.scaleX(this.dataX[i]) - this.barWidth / 2
+                            return this.scaleX(this.dataX[i]) - this.barWidth / 2
                         })
                         .attr('y', (d,i) => {
-                            return this.scaleY(this.stackStep[i]) + this.margin.top
+                            return this.scaleY(this.stackStep[i])
                         })
                         .attr('width', this.barWidth)
                         .attr('height', (d,i) => {
@@ -215,37 +215,6 @@
                         .attr('fill', this.defaultColor[this.legend.data.indexOf(item.name)])
                         .attr('cursor','pointer')
                 })
-            },
-            renderBar(item){
-                let yAxis = false
-                if(this.axisSite){
-                    yAxis = this.axisSite.right.includes(item.name)
-                }
-                let stackName = D3Util.getStackName(item.name,this.stack)
-                if(stackName){
-                    item.data.forEach((stackItem,stackIndex)=>{
-                        this.stackCount[stackName][stackIndex] += stackItem
-                    })
-                }
-                let currentData = stackName ? this.stackCount[stackName] : item.data
-                this.body.append('g').selectAll('rect')
-                    .data(currentData)
-                    .enter()
-                    .append('rect')
-                    .attr('x', (d,i) => {
-                        return this.scaleX(this.dataX[i]) + (this.barWidth + 2) * (this.stackIndex[item.name] - 1 - this.xCount / 2) + 1
-                    })
-                    .attr('y', (d,i) => {
-                        return yAxis ? this.scaleRightY(d) : this.scaleLeftY(d)
-                    })
-                    .attr('width', this.barWidth)
-                    .attr('height', (d,i) => {
-                        let heightData = stackName ? item.data[i] : d
-                        let ySite = yAxis ? this.scaleRightY(heightData) : this.scaleLeftY(heightData)
-                        return this.height - this.margin.top - this.margin.bottom - ySite
-                    })
-                    .attr('fill', this.defaultColor[this.legend.data.indexOf(item.name)])
-                    .attr('cursor','pointer')
             },
             renderGraph() {
                 this.graphGroup = this.svg.append('g').attr('class', 'graphGroup')
@@ -275,7 +244,7 @@
                         return this.labelMap[d] || d
                     })
                     .on('click', (item,index) => {
-                        this.svg.selectAll('g').remove()
+                        this.body.selectAll('g').remove()
                         this.legend.type[item] = !this.legend.type[item]
                         let newSeries = []
                         this.dataY.forEach(item=>{

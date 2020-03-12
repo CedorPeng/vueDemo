@@ -75,5 +75,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     todo:
         1)legend部分显示折线的元素
 17.百分比柱图完成
+18.饼图封装完成
 */
 

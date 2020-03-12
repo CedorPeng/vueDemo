@@ -373,9 +373,9 @@
                         return this.labelMap[d] || d
                     })
                     .on('click', (item,index) => {
-                        this.svg.selectAll('g').remove()
-                        this.svg.selectAll('path').remove()
-                        this.svg.selectAll('circle').remove()
+                        this.body.selectAll('g').remove()
+                        this.body.selectAll('path').remove()
+                        this.body.selectAll('circle').remove()
                         this.legend.type[item] = !this.legend.type[item]
                         let newSeries = []
                         this.dataY.forEach(item=>{

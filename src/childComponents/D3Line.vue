@@ -1,5 +1,6 @@
 <template>
-    <div class="D3" style="width: 100%">
+    <div>
+        <div class="D3" style="width: 100%"></div>
     </div>
 </template>
 
@@ -76,7 +77,7 @@
             * */
             render(){
                 if(!this.tooltip) {
-                    this.tooltip = d3.select(`.${this.name}.D3`)
+                    this.tooltip = d3.select(`.${this.name} .D3`)
                         .append('div')
                         .style('left', '40px')
                         .style('top', '30px')
@@ -84,12 +85,12 @@
                         .html('');
                 }
                 if(!this.svg) {
-                    this.svg = d3.select(`.${this.name}.D3`)
+                    this.svg = d3.select(`.${this.name} .D3`)
                         .append('svg')
                         .attr('width', this.width)
                         .attr('height', this.height)
                         .style('background', '#f3f3f3')
-                    this.renderClipPath();
+                    // this.renderClipPath();
                     this.initGraph();
                 }
                 this.renderAxes();
@@ -178,7 +179,7 @@
                     this.body = this.svg.append('g')
                         .attr('class', 'body')
                         .attr('transform', `translate(${this.margin.left},${this.margin.top})`)
-                        .attr('clip-path', 'url(#body-clip)')
+                        // .attr('clip-path', 'url(#body-clip)')
                     this.renderTransLine()
                 }
                 this.renderLines();
@@ -271,6 +272,10 @@
                     .attr('xlink:href', '#graph')
                     .attr('stroke', (d,i) => this.color(i))
                     .style('cursor', 'pointer')
+                    .on('click', function(d,i){
+                        // d3.select(this)
+                        //     .attr('stroke', 'lightgrey')
+                    })
 
                 ent.append('text')
                     .attr('x', (d,i) => i * 150 + 132)

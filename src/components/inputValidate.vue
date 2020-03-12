@@ -28,24 +28,31 @@
 
         </Modal>
         <div class="chartBox" style="width: 1000px;">
-<!--            <D3Line-->
-<!--                class="line"-->
-<!--                name="line"-->
-<!--                :data="chart.chartData"-->
-<!--                :settings="chart.chartSettings"-->
-<!--            ></D3Line>-->
-<!--            <D3Bar-->
-<!--                class="bar"-->
-<!--                name="bar"-->
-<!--                :data="chart.chartData"-->
-<!--                :settings="chart.chartSettings"-->
-<!--            ></D3Bar>-->
+            <D3Line
+                class="line"
+                name="line"
+                :data="chart.chartData"
+                :settings="chart.chartSettings"
+            ></D3Line>
+            <D3Bar
+                class="bar"
+                name="bar"
+                :data="chart.chartData"
+                :settings="chart.chartSettings"
+            ></D3Bar>
             <PercentStackBar
                 class="bar"
                 name="bar"
                 :data="chart.chartData"
                 :settings="chart.chartSettings"
             ></PercentStackBar>
+            <D3Pie
+                class="pie"
+                name="pie"
+                :data="pie.chartData"
+                :settings="pie.chartSettings"
+            ></D3Pie>
+
         </div>
     </div>
 </template>
@@ -54,6 +61,7 @@
     import D3Line from '../childComponents/D3Line'
     import D3Bar from '../childComponents/D3Bar'
     import PercentStackBar from '../childComponents/PercentStackBar'
+    import D3Pie from '../childComponents/D3Pie'
     export default {
         name: "inputValidate",
         data() {
@@ -140,6 +148,36 @@
                         showLine:['year1','year5']
                     }
 
+                },
+                pie:{
+                    chartData : {
+                        columns:['name','last'],
+                        rows:[
+                            {
+                                name : 'pengxc2',
+                                last : 10000 ,
+                            },
+                            {
+                                name : 'niuxf2',
+                                last : 12000 ,
+                            },
+                            {
+                                name : 'yangwei',
+                                last : 11000 ,
+                            },
+                        ]
+
+                    },
+                    chartSettings:{
+                        // dataOrder : { label: 'last', order: 'asc' },
+                        labelMap:{
+                            last:'去年'
+                        },
+                        legendName:{
+                            '去年':'上一年'
+                        },
+                    }
+
                 }
             }
         },
@@ -160,7 +198,8 @@
         components:{
             D3Line,
             D3Bar,
-            PercentStackBar
+            PercentStackBar,
+            D3Pie
         },
         mounted() {
             // console.log(this.$route.query.name);

@@ -3,7 +3,6 @@
         <router-link to="/home">Home</router-link>
         <router-link to="/news">News</router-link>
         <router-link to="/draggable">draggable</router-link>
-        <router-link to="/D3Bar">D3</router-link>
         <router-link to="/inputValidate">inputValidate</router-link>
 <!--        <router-link to="/D3Line">D3Line</router-link>-->
         <!--    <br>-->
