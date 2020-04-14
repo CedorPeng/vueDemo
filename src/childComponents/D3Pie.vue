@@ -174,7 +174,9 @@
                     .delay(d => d.startAngle * 200)
                     .attr('fill', (d,i) => this.defaultColor[i])
                     .attr('class', 'pie')
-                    //画弧
+                    //直接画弧
+                    // .attr('d',d => this.arc(d))
+                    //过渡画弧
                     .attrTween('d', d => {
                         let i = d3.interpolate({startAngle: d.startAngle, endAngle: d.startAngle}, d);
                         return t => this.arc(i(t))

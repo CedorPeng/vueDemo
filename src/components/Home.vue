@@ -17,6 +17,15 @@
                     :compare="startTime"
             ></QuarterModel>
         </div>
+        <m_dialog
+            v-model="dialogShow"
+            title="title"
+            :close="true"
+            :footer="true"
+            top="50"
+            width="70%"
+            ><div>zheshitanceng</div>
+        </m_dialog>
     </div>
 </template>
 
@@ -34,6 +43,7 @@
      * */
     import {mapGetters} from 'vuex'
     import * as api from '../api/Home'
+    import MDialog from '../childComponents/MDialog'
 
     export default {
         name: "Home",
@@ -43,6 +53,7 @@
                 endTime: '',
                 transmitValue: '',
                 num: 123456,
+                dialogShow:true,
             }
         },
         computed: {
@@ -111,7 +122,8 @@
 
         },
         components: {
-            HoverDropdown
+            HoverDropdown,
+            m_dialog:MDialog
         }
     }
 
