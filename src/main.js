@@ -11,11 +11,13 @@ import './assets/style/base.less'
 import QuarterModel from './childComponents/QuarterModel'
 import CedorUtils from './util/base'
 import htmlToPdf from './util/HtmlToPDF'
+import clickoutside from '@/util/clickoutside';
 
 Vue.use(htmlToPdf)
 
 Vue.use(iView)
 Vue.use(CedorFilters)
+Vue.directive('clickoutside', clickoutside)
 Vue.component('QuarterModel', QuarterModel)
 Vue.prototype.eventBus = new Vue()
 Vue.prototype.CedorUtils = CedorUtils
