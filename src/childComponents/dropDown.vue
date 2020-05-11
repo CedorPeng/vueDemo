@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  
+
   export default {
     name: 'dropDown',
     props: {
