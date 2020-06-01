@@ -41,8 +41,8 @@
                 :settings="chart.chartSettings"
             ></D3Bar>
             <PercentStackBar
-                class="bar"
-                name="bar"
+                class="stackBar"
+                name="stackBar"
                 :data="chart.chartData"
                 :settings="chart.chartSettings"
             ></PercentStackBar>
