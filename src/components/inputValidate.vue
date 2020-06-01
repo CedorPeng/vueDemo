@@ -22,7 +22,7 @@
                 </Form>
             </div>
             <div slot="footer">
-                <Button type="primary" @click="submit()">提交</Button>
+                <Button type="primary" @click="submit">提交</Button>
                 <Button type="default" @click="cancelSubmit">取消</Button>
             </div>
 
@@ -184,9 +184,11 @@
         methods: {
             submit() {
                 this.$refs.myMessage.validate(valid => {
-                    if (valid) {
+                    if (!valid) {
                         console.log(111);
+                        return
                     }
+                    console.log(22222);
                 })
             },
             cancelSubmit() {
