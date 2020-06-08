@@ -54,6 +54,12 @@ CedorUtils.prototype = {
         return value.replace(/(^\s+)|(\s+$)/g, '');
     },
     /**
+     * @手机号脱敏
+     * */
+    resetPhone : function (phone) {
+        return phone.replace(/(\d{3})\d{4}(\d{4})/,'$1****$2')
+    },
+    /**
      * @数组去重
      * */
     removeRepeat: function (value) {
@@ -265,6 +271,11 @@ CedorUtils.prototype = {
             }
         }
         return _A.reverse().join('')
+    },
+    getWeek:function(date){
+        let newDate = date.indexOf('-') === -1 ? date : date.replace(/-/g,"/");
+        let week = ['周一','周二','周三','周四','周五','周六','周日']
+        return week[new Date(newDate).getDay()-1]
     }
 
 
