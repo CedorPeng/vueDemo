@@ -111,7 +111,8 @@
             },
             //填充的数据series
             setSeries(data){
-                if(!data) return this.series;
+              console.log(data);
+              if(!data) return this.series;
                 this.series = data
                 this.yAxisStack = {}
                 this.stackCount = {}
@@ -152,6 +153,16 @@
                     })
                     let everyWidth = (this.scaleX.step() - 20) / this.xCount
                     this.barWidth = everyWidth > this.maxSingleWidth ? this.maxSingleWidth : everyWidth;
+                }
+                else{
+                    this.xCount = 0
+                    this.stackIndex = {}
+                    this.series.forEach((item,index)=>{
+                        if(!this.showLine.includes(item.name)) {
+                          this.xCount++
+                          this.stackIndex[item.name] = this.xCount
+                        }
+                    })
                 }
                 if(this.axisSite){
                     this.setYAxis()
@@ -316,8 +327,7 @@
                 let line = d3.line()
                     .x((d,i) => this.scaleX(this.dataX[i]))
                     .y(d => {
-                        let yAxisIndex = this.axisSite && this.axisSite.right.includes(item.name) ? this.scaleRightY : this.scaleLeftY
-                        return yAxisIndex(d)
+                        return this.scaleRightY(d)
                     })
                 this.body.selectAll('path.line')
                     .data(series)
@@ -337,8 +347,8 @@
                         .attr('class', (v, index) => 'dot _' + i + ' index_' + index)
                         .attr('cx', (d,i) => this.scaleX(this.dataX[i]))
                         .attr('cy', d => {
-                            let yAxisIndex = this.axisSite && this.axisSite.right.includes(item.name) ? this.scaleRightY : this.scaleLeftY
-                            return yAxisIndex(d)
+                            // let yAxisIndex = this.axisSite && this.axisSite.right.includes(item.name) ? this.scaleRightY : this.scaleLeftY
+                            return this.scaleRightY(d)
                         })
                         .attr('r', 2)
                         .attr('stroke', (d,i) => this.defaultColor[this.legend.data.indexOf(item.name)])
