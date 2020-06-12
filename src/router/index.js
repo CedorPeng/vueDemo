@@ -5,6 +5,7 @@ import Home from '../components/Home'
 import News from '../components/News'
 import draggable from '../components/Draggable'
 import inputValidate from '../components/inputValidate'
+import transition1 from '../components/transition1'
 import D3Line from '../childComponents/D3Line'
 
 Vue.use(Router)
@@ -36,11 +37,11 @@ const router = new Router({
             name: 'inputValidate',
             component: inputValidate
         },
-        // {
-        //     path: '/D3Line',
-        //     name: 'D3Line',
-        //     component: D3Line
-        // }
+        {
+            path: '/transition1',
+            name: 'transition1',
+            component: transition1
+        },
     ]
 })
 

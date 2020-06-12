@@ -53,7 +53,7 @@
                 endTime: '',
                 transmitValue: '',
                 num: 123456,
-                dialogShow:true,
+                dialogShow:false,
             }
         },
         computed: {
