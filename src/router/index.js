@@ -6,6 +6,7 @@ import News from '../components/News'
 import draggable from '../components/Draggable'
 import inputValidate from '../components/inputValidate'
 import transition1 from '../components/transition1'
+import station from '../components/station'
 import D3Line from '../childComponents/D3Line'
 
 Vue.use(Router)
@@ -41,6 +42,11 @@ const router = new Router({
             path: '/transition1',
             name: 'transition1',
             component: transition1
+        },
+        {
+            path: '/station',
+            name: 'station',
+            component: station
         },
     ]
 })

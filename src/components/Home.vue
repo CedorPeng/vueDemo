@@ -44,6 +44,7 @@
     import {mapGetters} from 'vuex'
     import * as api from '../api/Home'
     import MDialog from '../childComponents/MDialog'
+    import myPromise from '@/util/promise'
 
     export default {
         name: "Home",
@@ -97,7 +98,7 @@
                 // api.getGetValue({msg:111}).then(res=>{
                 //   console.log(res);
                 // })
-                console.log(this.CedorUtils.totalCount([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+                // console.log(this.CedorUtils.totalCount([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
                 // let oldObj = {
                 //   a:1,
                 //   b:{
@@ -110,6 +111,24 @@
                 // this.eventBus.$emit('close','home')
                 // this.$Message.success('成功提示')
                 // console.log(this.CedorUtils.countAndSay('1234512351231323132345','1234'));
+                let promise = new myPromise((resolve, reject) => {
+                    // throw new Error('报错了')
+                    setTimeout(() => {
+                      resolve(123);
+                    }, 1000);
+                  }
+                )
+                let p1 = promise.then(success=>{
+                  console.log(success,'success');
+                  return 123456
+                },err=>{
+                  console.log(err,'err');
+                })
+                p1.then(success1=>{
+                  console.log(success1,'success1');
+                },err1=>{
+                  console.log(err1,'err1');
+                })
 
             },
             startTimeChange(value) {
