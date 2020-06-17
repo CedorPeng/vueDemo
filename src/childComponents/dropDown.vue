@@ -30,7 +30,7 @@
         <span class="dropTree--model__value-text fl">{{label[value[0]] || value[0]}}</span>
         <span class="fl" v-if="value.length > 1">(+{{value.length - 1}})</span>
       </div>
-      <i class="dropTree--set el-icon-circle-close" v-show="clearable && isShowClear"  @click.stop="clearValue"></i>
+      <i class="dropTree--set el-icon-circle-close" v-show="clearable && isShowClear" @click.stop="clearValue"></i>
       <i
         class="dropTree--set label-icon"
         :class="isShowOptions ? 'el-icon-arrow-up' : 'el-icon-arrow-left'"
@@ -56,17 +56,17 @@
   export default {
     name: 'dropDown',
     props: {
-      name:{
-        type:String,
-        default:''
+      name: {
+        type: String,
+        default: ''
       },
-      placeholder:{
-        type:String,
-        default:'Select'
+      placeholder: {
+        type: String,
+        default: 'Select'
       },
-      clearable:{
-        type:Boolean,
-        default:false
+      clearable: {
+        type: Boolean,
+        default: false
       },
       multiple: {
         type: Boolean,
@@ -91,120 +91,120 @@
         type: Boolean,
       },
       value: [Array],
-      options:[Array],
+      options: [Array],
 
 
     },
-    data () {
+    data() {
       return {
-        searchTimer:null,
-        label:{},
-        isShowOptions:false,
-        isShowClear:false,
-        searchValue:'',
-        filterOptions:[],
-        selectValue:[],
-        demoParams:{
-          value:['1','2','3','4'],
-          options:[
+        searchTimer: null,
+        label: {},
+        isShowOptions: false,
+        isShowClear: false,
+        searchValue: '',
+        filterOptions: [],
+        selectValue: [],
+        demoParams: {
+          value: ['1', '2', '3', '4'],
+          options: [
             {
-              label:'pengxc2',
+              label: 'pengxc2',
               value: '1',
-              children:[
+              children: [
                 {
-                  label:'chuym1',
+                  label: 'chuym1',
                   value: '6'
                 },
                 {
-                  label:'chuym1',
+                  label: 'chuym1',
                   value: '7'
                 },
                 {
-                  label:'chuym1',
+                  label: 'chuym1',
                   value: '8'
                 },
               ]
             },
             {
-              label:'niuxf2',
+              label: 'niuxf2',
               value: '2'
             },
             {
-              label:'shijh1211111111123',
+              label: 'shijh1211111111123',
               value: '3',
               children: [
                 {
-                  label:'chuym1',
+                  label: 'chuym1',
                   value: '9'
                 },
                 {
-                  label:'chuym1',
+                  label: 'chuym1',
                   value: '10'
                 },
                 {
-                  label:'chuym1',
+                  label: 'chuym1',
                   value: '11'
                 },
               ]
             },
             {
-              label:'chuym1',
+              label: 'chuym1',
               value: '4',
-              children:[
+              children: [
                 {
-                  label:'chuym1',
+                  label: 'chuym1',
                   value: '12'
                 },
                 {
-                  label:'chuym1',
+                  label: 'chuym1',
                   value: '13'
                 },
                 {
-                  label:'chuym1',
+                  label: 'chuym1',
                   value: '14'
                 },
               ]
             },
             {
-              label:'chuym1',
+              label: 'chuym1',
               value: '5'
             },
           ],
-          searchParams:{
-            url:'serviceUpsell/getFilterByTerm',
-            params:{
-              search_nameKey:'search_type',
-              search_name:'ISR',
-              search_valueKey:'search_value',
+          searchParams: {
+            url: 'serviceUpsell/getFilterByTerm',
+            params: {
+              search_nameKey: 'search_type',
+              search_name: 'ISR',
+              search_valueKey: 'search_value',
             }
           }
         },
       }
     },
     watch: {
-      searchValue:function(val){
-        if(this.search){
+      searchValue: function (val) {
+        if (this.search) {
           // this._debounce(this.getFilterOptions)
-          this._debounce(()=>{
-            this.$emit('filterChange',{name:this.name , value : val})
+          this._debounce(() => {
+            this.$emit('filterChange', {name: this.name, value: val})
           })
-        }else{
+        } else {
         }
       },
-      options:function(val){
-        this.getEveryOne(this.options).forEach(v=>{
+      options: function (val) {
+        this.getEveryOne(this.options).forEach(v => {
           this.label[v.value] = v.label
         })
       },
     },
     methods: {
-      _debounce(fn){
+      _debounce(fn) {
         if (this.searchTimer) {
           clearTimeout(this.searchTimer)
         }
         this.searchTimer = setTimeout(fn, 500)
       },
-      async getFilterOptions(){
+      async getFilterOptions() {
         let params = {
           [this.searchParams.params.search_nameKey]: this.searchParams.params.search_name,
           [this.searchParams.params.search_valueKey]: this.searchValue
@@ -212,10 +212,10 @@
         try {
           let res = await this.axios.post(`${this.this.searchParams.url}`, params)
           if (res.data.status === 200) {
-            this.filterOptions = res.data.data.map(item=>{
+            this.filterOptions = res.data.data.map(item => {
               return {
-                label:item,
-                value:item
+                label: item,
+                value: item
               }
             })
           } else {
@@ -226,36 +226,36 @@
         }
       },
 
-      closeOptions(){
+      closeOptions() {
         this.isShowOptions = false
       },
-      inputMouseover(){
+      inputMouseover() {
         this.isShowClear = this.value.length !== 0
       },
-      inputMouseout(){
+      inputMouseout() {
         this.isShowClear = false
       },
-      clearValue(){
+      clearValue() {
         this.selectValue = []
         this.$emit('input', []);
         this.$emit('change', []);
         this.$refs.tree.setCheckedNodes(this.selectValue);
       },
-      toggle(){
+      toggle() {
         this.isShowOptions = !this.isShowOptions
       },
-      changeValue(type){
-        this.selectValue = type ? this.getEveryOne(this.options).map(v=>v.value) : []
+      changeValue(type) {
+        this.selectValue = type ? this.getEveryOne(this.options).map(v => v.value) : []
         this.$emit('input', this.selectValue);
         this.$emit('change', this.selectValue);
         this.$refs.tree.setCheckedNodes(this.selectValue);
       },
-      getEveryOne(array){
+      getEveryOne(array) {
         let all = []
-        array.forEach(item=>{
-          if(item.children){
-            all = [...all,...this.getEveryOne(item.children)]
-          }else{
+        array.forEach(item => {
+          if (item.children) {
+            all = [...all, ...this.getEveryOne(item.children)]
+          } else {
             all.push(item)
           }
         })
@@ -270,12 +270,13 @@
 </script>
 
 <style scoped lang="less">
-  .dropTree{
+  .dropTree {
     position: relative;
     width: 188px;
     height: 28px;
     padding: 0 14px;
-    &--require{
+
+    &--require {
       color: red;
       position: absolute;
       width: 14px;
@@ -284,7 +285,8 @@
       left: 0;
       font-size: 24px;
     }
-    &--model{
+
+    &--model {
       width: 160px;
       height: 28px;
       line-height: 26px;
@@ -294,64 +296,75 @@
       border-radius: 4px;
       cursor: pointer;
       z-index: 9;
-      &__placeholder{
+
+      &__placeholder {
         font-size: 12px;
         color: #CCCDCC;
       }
-      &__value{
+
+      &__value {
         font-size: 12px;
         color: #666766;
         /*height: 28px;*/
-        &-text{
+
+        &-text {
           max-width: 100px;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
         }
       }
-      &:hover{
+
+      &:hover {
         border: 1px solid #c0c4cc;
       }
     }
-    &--set{
+
+    &--set {
       position: absolute;
       top: 8px;
       right: 22px;
       font-size: 14px;
+
       &&.el-icon-arrow-up {
         transform: rotate(0);
         transition: transform .2s linear;
       }
+
       &&.el-icon-arrow-left {
         transform: rotate(-90deg);
         transition: transform .2s linear;
       }
     }
-    &--options{
+
+    &--options {
       position: absolute;
       top: 32px;
       left: 14px;
       background: #fff;
       border: 1px solid #E4E7ED;
-      box-shadow: 0 2px 12px 0 rgba(0,0,0,0.06);
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06);
       border-radius: 4px;
       max-height: 300px;
       min-width: 160px;
       max-width: 360px;
       z-index: 10;
+
       /deep/ .el-input__inner {
         width: 90%;
         margin: 0 auto;
-        padding:0;
+        padding: 0;
         display: block;
         border: 0;
         border-bottom: 1px solid #DCDFE6;
         border-radius: 0;
-        &:focus{
+
+        &:focus {
           border-bottom: 1px solid #DCDFE6;
         }
       }
-      &:before{
+
+      &:before {
         position: absolute;
         top: -12px;
         left: 20px;
@@ -364,7 +377,8 @@
         border-top: 6px solid transparent;
       }
     }
-    &--utils{
+
+    &--utils {
       width: 90%;
       margin: 0 auto;
       display: block;
@@ -375,16 +389,17 @@
       font-family: PingFangSC-Regular;
       font-size: 12px;
       color: #007EFF;
-      span{
+
+      span {
         cursor: pointer;
       }
     }
   }
 </style>
 <style lang="less">
-  .dropTree{
-    &--options{
-      .el-scrollbar__wrap{
+  .dropTree {
+    &--options {
+      .el-scrollbar__wrap {
         max-height: 300px;
       }
     }

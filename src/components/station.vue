@@ -12,19 +12,20 @@
 <script>
   export default {
     name: "station",
-    data(){
+    data() {
       return {
-        stationOption:['西直门','大钟寺','知春路','五道口','上地','清河','西二旗','龙泽','回龙观','霍营','立水桥','北苑'],
-        activeStation:0,
+        stationOption: ['西直门', '大钟寺', '知春路', '五道口', '上地', '清河', '西二旗', '龙泽', '回龙观', '霍营', '立水桥', '北苑'],
+        activeStation: 0,
       }
     },
     created() {
     },
     mounted() {
+      console.log(this.$route);
     },
-    methods:{
-      active(i){
-        if(this.activeStation === i) return
+    methods: {
+      active(i) {
+        if (this.activeStation === i) return
         this.activeStation = i
 
       }
@@ -33,17 +34,19 @@
 </script>
 
 <style lang="less" scoped>
-  .station{
+  .station {
     width: 400px;
     display: flex;
-    >div{
+
+    > div {
       flex: 1;
       height: 20px;
       /*display: inline-block;*/
       list-style: none;
       position: relative;
-      border-top:1px solid #000 ;
-      i{
+      border-top: 1px solid #000;
+
+      i {
         width: 10px;
         height: 10px;
         border-radius: 10px;
@@ -52,7 +55,8 @@
         cursor: pointer;
         top: -5px;
         left: -5px;
-        &:hover{
+
+        &:hover {
           width: 14px;
           height: 14px;
           border-radius: 14px;
@@ -60,21 +64,24 @@
           top: -7px;
           left: -7px;
         }
-        &.active{
+
+        &.active {
           background-color: red;
         }
       }
-      p{
+
+      p {
         cursor: pointer;
-        position:absolute ;
+        position: absolute;
         top: 10px;
-        right:100%;
+        right: 100%;
         white-space: nowrap;
         transform: rotate(-45deg);
-        transform-origin:top right;
+        transform-origin: top right;
       }
-      &:last-child{
-        border:none;
+
+      &:last-child {
+        border: none;
       }
     }
   }

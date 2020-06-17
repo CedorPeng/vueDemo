@@ -8,16 +8,18 @@ import createPersistence from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-import changeValue from './module/changeValue'
+import oneVuexTransition from './module/oneVuexTransition'
+import getters from './getters'
 
 
 export default new Vuex.Store({
-    modules: {
-        changeValue
-    },
-    plugins: [createPersistence({
-        storage: window.sessionStorage
-    })]
+  modules: {
+    oneVuexTransition
+  },
+  getters,
+  plugins: [createPersistence({
+    storage: window.sessionStorage
+  })]
 })
 
 
