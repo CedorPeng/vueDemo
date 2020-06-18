@@ -5,6 +5,7 @@ import Home from '../components/Home'
 import inputValidate from '../components/inputValidate'
 import transition1 from '../components/transition1'
 import station from '../components/station'
+import chart from '../components/chart'
 
 Vue.use(Router)
 const router = new Router({
@@ -34,6 +35,11 @@ const router = new Router({
       path: '/station',
       name: 'station',
       component: station
+    },
+    {
+      path: '/chart',
+      name: 'chart',
+      component: chart
     },
   ]
 })

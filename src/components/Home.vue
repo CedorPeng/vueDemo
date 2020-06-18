@@ -1,7 +1,11 @@
 <template>
   <div>
     <Button type="default" @click="useTransmit">使用传递的值</Button>
-    <div>{{num | setThousand(3) }}{{getParams}}{{clickParams}}</div>
+    <div>{{num | setThousand(3) }}</div>
+    <div style="padding:10px;">
+      <p>vuex 方法一 接收的值：{{getMapActionsParams}}</p>
+      <p>vuex 方法二 接收的值：{{params_$store}}</p>
+    </div>
     <div>
       <QuarterModel
         style="width: 300px;display: inline-block;"
@@ -69,9 +73,9 @@
     },
     computed: {
       // 方法一：直接在computed里面注册获取params的方法
-      ...mapGetters(['getParams']),
+      ...mapGetters(['getMapActionsParams']),
       // 方法二：在computed里面注册被getter管理的变量
-      ...mapGetters(['clickParams'])
+      ...mapGetters(['params_$store'])
 
     },
     created() {

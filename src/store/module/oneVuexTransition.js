@@ -1,21 +1,31 @@
 export default {
   state: {
-    params: null
+    params_MapActions: null,
+    params_$store: null,
+
   },
   getters: {
-    getParams: state => {
+    getMapActionsParams: state => {
+      return state.params_MapActions
+    },
+    get$storeParams: state => {
       return state.params
-    }
+    },
   },
   actions: {
-    clickParams({state, commit}, data) {
-      console.log(data);
-      commit('setParams', data)
+    clickMapActionsParams({state, commit}, data) {
+      commit('setMapActionsParams', data)
+    },
+    click$storeParams({state, commit}, data) {
+      commit('set$storeParams', data)
     }
   },
   mutations: {
-    setParams(state, data) {
-      state.params = data
+    setMapActionsParams(state, data) {
+      state.params_MapActions = data
+    },
+    set$storeParams(state, data) {
+      state.params_$store = data
     }
   }
 }

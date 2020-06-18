@@ -1,4 +1,4 @@
 const getters = {
-  clickParams: state => state.oneVuexTransition.params,
+  params_$store: state => state.oneVuexTransition.params_$store,
 };
 export default getters

@@ -1,13 +1,14 @@
 <template>
   <div class="hello">
     <router-link to="/home">Home</router-link>
+    <router-link to="/station">站台</router-link>
 <!--    <router-link to="/inputValidate">inputValidate</router-link>-->
 <!--    <router-link to="/transition1">动画</router-link>-->
-<!--    <router-link to="/station">站台</router-link>-->
+<!--    <router-link to="/chart">myCHart</router-link>-->
 
     <Button type="default" @click="transmit">vuex传值</Button>
 <!--    <Button type="default" @click="exportImg">html2canvas导出视图</Button>-->
-    <Button type="default" @click="push">跳转</Button>
+<!--    <Button type="default" @click="push">跳转</Button>-->
 <!--    <Button type="default" @click="save">转PDF并导出</Button>-->
 
 <!--    使用'bem'规范-->
@@ -17,7 +18,7 @@
 <!--    </div>-->
 
 
-    <div class="content" style="width: 1000px;margin:0 auto;">
+    <div class="content">
       <router-view/>
     </div>
     <!--    <div v-show="false" id="pdfDom" style="padding-top: 55px;background-color:#fff;">-->
@@ -49,19 +50,19 @@
       // })
     },
     methods: {
-      ...mapActions(['clickParams']),//方法一:注册clickParams方法
+      ...mapActions(['clickMapActionsParams']),//方法一:注册clickParams方法
       transmit() {
         /**
          * @用vuex传值的方法一:使用clickParams传递数据
          * */
-        // this.clickParams({id:5,name:'CedorMapActions'})
+        // this.clickMapActionsParams({id:5,name:'CedorMapActions'})
 
         /***
          * @用vuex传值的方法二 : 传递值
          * @直接使用$store.dispatch
          * @语法 : this.$store.dispatch('传递值的actions方法',需要传递的值)
          */
-        this.$store.dispatch('clickParams',{id:5,name:'Cedor$store'})
+        this.$store.dispatch('click$storeParams',{id:5,name:'Cedor$store'})
       },
       async exportImg(){
         if (!this.pageList[this.$route.name]) {
@@ -76,8 +77,7 @@
         let canvas = this.mergeImg(this.pageList)
         this.savePdf(canvas, this.title)
       },
-      push(name) {
-        // console.log(name);
+      push() {
         this.$router.push({name:'station',params:{id:1}})
         // this.$router.push({path: '/station', query: {id: 1}})
       },
@@ -140,4 +140,9 @@
 
   /*}*/
   /*}*/
+  .content{
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
 </style>
