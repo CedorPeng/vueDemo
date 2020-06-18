@@ -16,19 +16,26 @@
       return {
         stationOption: ['西直门', '大钟寺', '知春路', '五道口', '上地', '清河', '西二旗', '龙泽', '回龙观', '霍营', '立水桥', '北苑'],
         activeStation: 0,
+        eventBusTransfer:1
       }
     },
     created() {
     },
     mounted() {
-      console.log(this.$route);
+      this.eventBus.$on('transfer',name=>{
+        // console.log(name);
+        this.eventBusTransfer = name
+      })
     },
     methods: {
       active(i) {
         if (this.activeStation === i) return
         this.activeStation = i
-
-      }
+        // console.log(this.eventBusTransfer);
+      },
+      // useTransfer(key){
+      //   this.eventBusTransfer = key
+      // }
     }
   }
 </script>

@@ -122,7 +122,8 @@
         // let newObj = this.CedorUtils.deepCopy(oldObj)
         // newObj.b.c = 3;
         // console.log(oldObj,newObj);
-        // this.eventBus.$emit('close','home')
+        this.eventBus.$emit('close','home')
+        // this.eventBus.$emit('transfer','brother')
         // this.$Message.success('成功提示')
         // console.log(this.CedorUtils.countAndSay('1234512351231323132345','1234'));
 

@@ -7,6 +7,7 @@
 <!--    <router-link to="/chart">myCHart</router-link>-->
 
     <Button type="default" @click="transmit">vuex传值</Button>
+    <Button type="default" @click="close">主动获取eventBus的值？</Button>
 <!--    <Button type="default" @click="exportImg">html2canvas导出视图</Button>-->
 <!--    <Button type="default" @click="push">跳转</Button>-->
 <!--    <Button type="default" @click="save">转PDF并导出</Button>-->
@@ -38,16 +39,16 @@
       return {
         msg: 'Welcome to Your Vue.js App',
         title: 'testPDF',
-        pageList: {}
+        pageList: {},
       }
     },
     watch: {},
     mounted() {
     },
     created() {
-      // this.eventBus.$on('close',(name)=>{
-      //   this.close(name)
-      // })
+      this.eventBus.$on('close',(name)=>{
+        this.close(name)
+      })
     },
     methods: {
       ...mapActions(['clickMapActionsParams']),//方法一:注册clickParams方法
@@ -62,7 +63,7 @@
          * @直接使用$store.dispatch
          * @语法 : this.$store.dispatch('传递值的actions方法',需要传递的值)
          */
-        this.$store.dispatch('click$storeParams',{id:5,name:'Cedor$store'})
+        // this.$store.dispatch('click$storeParams',{id:5,name:'Cedor$store'})
       },
       async exportImg(){
         if (!this.pageList[this.$route.name]) {
@@ -90,6 +91,9 @@
           },//需要传递的参数
         });
         window.open(routeData.href, '_blank');
+      },
+      close(key){
+        console.log(key);
       }
     }
   }
