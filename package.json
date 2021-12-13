@@ -19,7 +19,7 @@
     "echarts": "^4.9.0",
     "html2canvas": "^1.0.0-rc.3",
     "iview": "^3.2.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "v-charts": "^1.19.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
