@@ -9,7 +9,7 @@
     <Button type="default" @click="transmit">vuex传值</Button>
     <Button type="default" @click="close">主动获取eventBus的值？</Button>
 
-    <ve-line width="1000px"  :data="chartData"></ve-line>
+    <ve-line width="1000px"  :events="chartEvent" :data="chartData"></ve-line>
 <!--    <Button type="default" @click="exportImg">html2canvas导出视图</Button>-->
 <!--    <Button type="default" @click="push">跳转</Button>-->
 <!--    <Button type="default" @click="save">转PDF并导出</Button>-->
@@ -38,6 +38,11 @@
   export default {
     name: 'HelloWorld',
     data() {
+      this.chartEvent = {
+        click : function (e){
+          console.log(e);
+        }
+      }
       return {
         msg: 'Welcome to Your Vue.js App',
         title: 'testPDF',
@@ -52,11 +57,22 @@
             { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
             { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
           ]
+        },
+        channelSetting:{
+          labelMap:{
+            DM:'店面',
+            TB:'淘宝',
+            JD:'京东',
+            PYQ:'朋友圈',
+            RQ:'人情',
+          }
         }
       }
     },
     watch: {},
     mounted() {
+      let data = require('../util/baseData').default.channelDays
+      console.log(data);
     },
     created() {
       this.eventBus.$on('close',(name)=>{
