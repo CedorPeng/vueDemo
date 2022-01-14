@@ -1,15 +1,15 @@
 <template>
   <div class="hello">
-    <router-link to="/home">Home</router-link>
-    <router-link to="/station">站台</router-link>
+<!--    <router-link to="/home">Home</router-link>-->
+<!--    <router-link to="/station">站台</router-link>-->
 <!--    <router-link to="/inputValidate">inputValidate</router-link>-->
 <!--    <router-link to="/transition1">动画</router-link>-->
 <!--    <router-link to="/chart">myCHart</router-link>-->
 
-    <Button type="default" @click="transmit">vuex传值</Button>
-    <Button type="default" @click="close">主动获取eventBus的值？</Button>
+<!--    <Button type="default" @click="transmit">vuex传值</Button>-->
+<!--    <Button type="default" @click="close">主动获取eventBus的值？</Button>-->
 
-    <ve-line width="1000px"  :events="chartEvent" :data="chartData"></ve-line>
+<!--    <ve-line width="1000px"  :events="chartEvent" :data="chartData"></ve-line>-->
 <!--    <Button type="default" @click="exportImg">html2canvas导出视图</Button>-->
 <!--    <Button type="default" @click="push">跳转</Button>-->
 <!--    <Button type="default" @click="save">转PDF并导出</Button>-->
